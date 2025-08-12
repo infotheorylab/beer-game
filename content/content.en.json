@@ -1,0 +1,67 @@
+{
+  "site_title": "Beer Game by AI Agents",
+  "hf_embed_url": "https://huggingface.co/spaces/example/beer-game-ai",
+  "slides": {
+    "hero": {
+      "title": "The Beer Game",
+      "kicker": "Can AI agents 🤖 manage a classic supply chain exercise?"
+    },
+    "roles": {
+      "title": "The Four Roles",
+      "items": [
+        {
+          "t": "Retailer",
+          "b": "Sees customer orders and its own inventory. Decides: order to Wholesaler. Ships: to customers (backlog if short)."
+        },
+        {
+          "t": "Wholesaler", 
+          "b": "Sees Retailer's orders and its own state. Decides: order to Distributor. Ships: to Retailer."
+        },
+        {
+          "t": "Distributor",
+          "b": "Sees Wholesaler's orders and its own state. Decides: order to Factory. Ships: to Wholesaler."
+        },
+        {
+          "t": "Factory",
+          "b": "Releases production (with a lead time) before it can ship. Decides: weekly production release. Ships: to Distributor."
+        }
+      ]
+    },
+    "week": {
+      "title": "A Week in the Game",
+      "steps": ["Receive", "Ship", "Record", "Advance", "Order"]
+    },
+    "bullwhip": {
+      "title": "The Bullwhip Effect",
+      "body": "Small changes in customer demand create wild swings as they move up the supply chain. Each player, acting rationally on their own, creates chaos for the system."
+    },
+    "aiq": {
+      "title": "What happens when AI plays the Beer Game?",
+      "bullets": [
+        "AI agents follow simple rules or learned policies to place orders.",
+        "They may smooth orders or overreact—it depends on the policy and delays.",
+        "The goal isn't perfect prediction; it's seeing how different policies change costs and bullwhip.",
+        "Try the simulation to compare behaviors."
+      ]
+    },
+    "vars": {
+      "title": "Key Variables",
+      "items": [
+        "Holding cost",
+        "Backlog (stockout) cost", 
+        "Shipment delay",
+        "Production lead time (Factory)",
+        "Fill rate",
+        "Total cost"
+      ]
+    },
+    "try": {
+      "title": "Try the Simulation",
+      "cta": "Open on Hugging Face"
+    },
+    "credits": {
+      "title": "Credits",
+      "body": "This game is developed by Carol Long, David Simchi-Levi, Andre du Pin Calmon, and Flavio du Pin Calmon. For inquiries or collaboration, feel free to reach out via email."
+    }
+  }
+}

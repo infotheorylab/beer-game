@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Beer Game Explained</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            overflow: hidden; /* Prevent body scroll */
+        }
+
+        .scroll-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+
+        .scroll-section {
+            scroll-snap-align: start;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 2rem;
+            width: 100%;
+        }
+        
+        #supply-chain-explainer-section {
+            /* This section needs to allow the sticky element to work */
+            height: 400vh; /* Reduced from 600vh for faster scrolling */
+            scroll-snap-align: start;
+            position: relative;
+        }
+        
+        .supply-chain-sticky-wrapper {
+             position: sticky;
+             top: 0;
+             height: 100vh;
+             width: 100%;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             overflow: hidden;
+        }
+
+        .explanation-content {
+            position: absolute;
+            max-width: 300px;
+            width: 90%;
+            background: rgba(40, 40, 40, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+            z-index: 20;
+        }
+
+        .explanation-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight-text {
+            color: #f59e0b; /* Amber color */
+            font-weight: 600;
+        }
+        
+        .icon-wrapper {
+            transition: all 0.5s ease-in-out;
+            padding: 1rem;
+            border-radius: 9999px;
+            border: 2px solid transparent;
+            text-align: center;
+            position: relative;
+        }
+
+        .icon-wrapper.highlight {
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: scale(1.1);
+        }
+        
+        /* Highlighting the border with the specific color */
+        .icon-wrapper.highlight-red { border-color: #f87171; }
+        .icon-wrapper.highlight-purple { border-color: #a78bfa; }
+        .icon-wrapper.highlight-blue { border-color: #60a5fa; }
+        .icon-wrapper.highlight-amber { border-color: #f59e0b; }
+
+        .arrow {
+            font-size: 2rem;
+            color: #6b7280;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .arrow.highlight {
+            color: #f59e0b;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="scroll-container">
+
+        <!-- Section 1: Introduction -->
+        <section class="scroll-section text-center">
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-bold mb-4">The <span class="highlight-text">Beer Game</span></h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8">A powerful simulation that reveals the hidden dynamics of a supply chain.</p>
+                <p class="text-gray-400">Scroll down to explore the roles and uncover the bullwhip effect.</p>
+                <div class="mt-12 text-2xl animate-bounce">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Supply Chain Explained (Wrapper) -->
+        <div id="supply-chain-explainer-section">
+            <div class="supply-chain-sticky-wrapper">
+                <!-- Explanations will be injected here by JS -->
+                <div id="explanation-container"></div>
+
+                <!-- Sticky Supply Chain Diagram -->
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 lg:space-x-12">
+                    <div id="chain-factory" class="icon-wrapper">
+                        <i class="fas fa-industry text-5xl text-[#f87171]"></i>
+                        <p class="mt-2 font-semibold">Factory</p>
+                    </div>
+                    <i id="arrow-1" class="fas fa-long-arrow-alt-right arrow"></i>
+                    <div id="chain-wholesaler" class="icon-wrapper">
+                        <i class="fas fa-warehouse text-5xl text-[#a78bfa]"></i>
+                        <p class="mt-2 font-semibold">Wholesaler</p>
+                    </div>
+                    <i id="arrow-2" class="fas fa-long-arrow-alt-right arrow"></i>
+                    <div id="chain-retailer" class="icon-wrapper">
+                        <i class="fas fa-store text-5xl text-[#60a5fa]"></i>
+                        <p class="mt-2 font-semibold">Retailer</p>
+                    </div>
+                    <i id="arrow-3" class="fas fa-long-arrow-alt-right arrow"></i>
+                    <div id="chain-customer" class="icon-wrapper">
+                        <i class="fas fa-users text-5xl text-[#f59e0b]"></i>
+                        <p class="mt-2 font-semibold">Customer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Section 3: The Bullwhip Effect -->
+        <section class="scroll-section">
+            <div class="w-full max-w-5xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">The <span class="highlight-text">Bullwhip Effect</span></h2>
+                <p class="text-lg text-gray-300 mb-8">Small changes in customer demand create wild swings as they move up the supply chain. Each player, acting rationally on their own, creates chaos for the system.</p>
+                <div class="bg-gray-800 p-4 sm:p-8 rounded-2xl shadow-2xl border border-gray-700">
+                    <canvas id="bullwhipChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollContainer = document.querySelector('.scroll-container');
+            const explainerSection = document.getElementById('supply-chain-explainer-section');
+            const explanationContainer = document.getElementById('explanation-container');
+
+            const icons = {
+                factory: document.getElementById('chain-factory'),
+                wholesaler: document.getElementById('chain-wholesaler'),
+                retailer: document.getElementById('chain-retailer'),
+                customer: document.getElementById('chain-customer'),
+            };
+            const arrows = [
+                document.getElementById('arrow-1'),
+                document.getElementById('arrow-2'),
+                document.getElementById('arrow-3'),
+            ];
+
+            const explanations = {
+                factory: {
+                    title: "The Factory",
+                    text: "The start of the production line. They have the longest lead times and see the most distorted demand signal, leading to massive overproduction or shortages.",
+                    highlightClass: 'highlight-red'
+                },
+                wholesaler: {
+                    title: "The Wholesaler",
+                    text: "Fulfills orders from many retailers. They face amplified demand variability and must order from the factory, adding another layer of forecasting and delay.",
+                    highlightClass: 'highlight-purple'
+                },
+                retailer: {
+                    title: "The Retailer",
+                    text: "Tries to meet customer demand while keeping inventory low. They place orders to the wholesaler based on what they *think* future demand will be.",
+                    highlightClass: 'highlight-blue'
+                },
+                customer: {
+                    title: "The Customer",
+                    text: "Their demand is the only real input to the system. They simply want to buy beer. Their demand is surprisingly stable, but their actions kickstart the entire chain.",
+                    highlightClass: 'highlight-amber'
+                },
+                orders: {
+                    title: "Goods vs. Information",
+                    text: "Goods flow <span class='highlight-text'>downstream</span> to the customer, while orders (information) flow <span class='highlight-text'>upstream</span> to the factory. Delays in this information flow are a primary cause of the bullwhip effect.",
+                }
+            };
+
+            let currentStep = null;
+
+            function updateHighlight(step) {
+                if (currentStep === step) return;
+                currentStep = step;
+
+                // Clear previous state
+                Object.values(icons).forEach(icon => {
+                    icon.classList.remove('highlight', 'highlight-red', 'highlight-purple', 'highlight-blue', 'highlight-amber');
+                });
+                arrows.forEach(arrow => {
+                    arrow.classList.remove('highlight');
+                    // FIX: Reset arrow direction correctly
+                    arrow.classList.remove('fa-long-arrow-alt-left');
+                    arrow.classList.add('fa-long-arrow-alt-right');
+                });
+                explanationContainer.innerHTML = '';
+
+                if (step && explanations[step]) {
+                    const explanation = explanations[step];
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'explanation-content';
+                    contentDiv.innerHTML = `
+                        <h3 class="text-2xl font-bold highlight-text mb-2">${explanation.title}</h3>
+                        <p class="text-gray-300">${explanation.text}</p>
+                    `;
+                    explanationContainer.appendChild(contentDiv);
+
+                    let targetElement = icons[step];
+
+                    if (targetElement) {
+                        targetElement.classList.add('highlight', explanation.highlightClass);
+                        const iconRect = targetElement.getBoundingClientRect();
+                        // Position the explanation below the highlighted icon
+                        contentDiv.style.left = `${iconRect.left + (iconRect.width / 2) - (contentDiv.offsetWidth / 2)}px`;
+                        contentDiv.style.top = `${iconRect.bottom + 15}px`;
+                    } else if (step === 'orders') {
+                        arrows.forEach(arrow => {
+                            arrow.classList.add('highlight');
+                            // FIX: Flip arrows to show upstream information flow
+                            arrow.classList.remove('fa-long-arrow-alt-right');
+                            arrow.classList.add('fa-long-arrow-alt-left');
+                        });
+                        // FIX: Position in the center of the screen, but higher up
+                        contentDiv.style.left = `50%`;
+                        contentDiv.style.top = `65%`; // Raised from 75%
+                        contentDiv.style.transform = `translate(-50%, -50%)`;
+                    }
+                    
+                    // Trigger fade-in
+                    setTimeout(() => contentDiv.classList.add('visible'), 50);
+                }
+            }
+
+            const steps = ['factory', 'wholesaler', 'retailer', 'customer', 'orders'];
+
+            scrollContainer.addEventListener('scroll', () => {
+                const { scrollTop, clientHeight } = scrollContainer;
+                const sectionTop = explainerSection.offsetTop;
+                const sectionHeight = explainerSection.offsetHeight;
+
+                // Check if we are within the explainer section
+                if (scrollTop >= sectionTop - clientHeight / 2 && scrollTop < sectionTop + sectionHeight - clientHeight / 2) {
+                    const scrollPortion = (scrollTop - sectionTop) / (sectionHeight - clientHeight);
+                    const stepIndex = Math.min(steps.length - 1, Math.floor(scrollPortion * steps.length));
+                    updateHighlight(steps[stepIndex]);
+                } else {
+                    updateHighlight(null); // Clear when outside the section
+                }
+            });
+
+            // Bullwhip Chart
+            const chartObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        renderBullwhipChart();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            chartObserver.observe(document.getElementById('bullwhipChart'));
+
+            function renderBullwhipChart() {
+                const ctx = document.getElementById('bullwhipChart').getContext('2d');
+                const labels = Array.from({ length: 20 }, (_, i) => `Week ${i + 1}`);
+                
+                const customerDemand = [8, 8, 8, 8, 12, 12, 12, 12, 8, 8, 8, 8, 12, 12, 12, 12, 8, 8, 8, 8];
+                const retailerOrders = [8, 8, 8, 16, 16, 12, 12, 8, 8, 8, 16, 16, 12, 12, 8, 8, 8, 8, 12, 12];
+                const wholesalerOrders = [8, 8, 12, 20, 20, 16, 8, 4, 8, 12, 20, 20, 16, 8, 4, 4, 8, 12, 16, 16];
+                const factoryOrders = [8, 10, 16, 24, 24, 16, 0, 0, 4, 12, 24, 28, 20, 4, 0, 0, 8, 16, 20, 20];
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Factory Production',
+                            data: factoryOrders,
+                            borderColor: '#f87171', // Red
+                            backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                             pointRadius: 0,
+                        }, {
+                            label: 'Wholesaler Orders',
+                            data: wholesalerOrders,
+                            borderColor: '#a78bfa', // Purple
+                            backgroundColor: 'rgba(167, 139, 250, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                             pointRadius: 0,
+                        }, {
+                            label: 'Retailer Orders',
+                            data: retailerOrders,
+                            borderColor: '#60a5fa', // Blue
+                            backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                             pointRadius: 0,
+                        }, {
+                            label: 'Customer Demand',
+                            data: customerDemand,
+                            borderColor: '#f59e0b', // Amber
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 0,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        animation: {
+                            duration: 2000,
+                            easing: 'easeInOutQuad',
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: '#d1d5db' }
+                            },
+                            x: {
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: '#d1d5db' }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#d1d5db',
+                                    font: { size: 14 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

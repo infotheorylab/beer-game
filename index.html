@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beer Game by AI Agents</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <main>
+        <!-- Section 1: Hero -->
+        <section id="hero" class="section">
+            <div class="reveal">
+                <h1 id="hero-title">The <span class="highlight-text">Beer Game</span> 🍺</h1>
+                <p id="hero-kicker">Can AI agents 🤖 manage a classic supply chain exercise?</p>
+                <p class="scroll-hint">Keep scrolling to explore<br><span class="desktop-hint">Best experienced on desktop</span></p>
+                <div class="scroll-indicator">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Four Roles -->
+        <section id="roles" class="section">
+            <div class="reveal">
+                <h2 id="roles-title">The <span class="highlight-text">Four Roles</span></h2>
+            </div>
+            <div class="roles-grid reveal">
+                <div class="role-card" data-role="retailer">
+                    <i class="fas fa-users role-icon"></i>
+                    <h3 class="role-name">Retailer</h3>
+                    <p class="role-description">Sees customer orders and its own inventory. Decides: order to Wholesaler. Ships: to customers (backlog if short).</p>
+                </div>
+                <div class="role-card" data-role="wholesaler">
+                    <i class="fas fa-store role-icon"></i>
+                    <h3 class="role-name">Wholesaler</h3>
+                    <p class="role-description">Sees Retailer's orders and its own state. Decides: order to Distributor. Ships: to Retailer.</p>
+                </div>
+                <div class="role-card" data-role="distributor">
+                    <i class="fas fa-warehouse role-icon"></i>
+                    <h3 class="role-name">Distributor</h3>
+                    <p class="role-description">Sees Wholesaler's orders and its own state. Decides: order to Factory. Ships: to Wholesaler.</p>
+                </div>
+                <div class="role-card" data-role="factory">
+                    <i class="fas fa-industry role-icon"></i>
+                    <h3 class="role-name">Factory</h3>
+                    <p class="role-description">Releases production (with a lead time) before it can ship. Decides: weekly production release. Ships: to Distributor.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Supply Chain Explained (Interactive) -->
+        <div id="supply-chain-explainer-section">
+            <div class="supply-chain-sticky-wrapper">
+                <!-- Explanations will be injected here by JS -->
+                <div id="explanation-container"></div>
+
+                <!-- Sticky Supply Chain Diagram -->
+                <div class="chain-container">
+                    <div id="chain-factory" class="icon-wrapper">
+                        <i class="fas fa-industry supply-chain-icon"></i>
+                        <p class="icon-label">Factory</p>
+                    </div>
+                    <i id="arrow-1" class="fas fa-long-arrow-alt-right arrow"></i>
+                    <div id="chain-wholesaler" class="icon-wrapper">
+                        <i class="fas fa-warehouse supply-chain-icon"></i>
+                        <p class="icon-label">Wholesaler</p>
+                    </div>
+                    <i id="arrow-2" class="fas fa-long-arrow-alt-right arrow"></i>
+                    <div id="chain-retailer" class="icon-wrapper">
+                        <i class="fas fa-store supply-chain-icon"></i>
+                        <p class="icon-label">Retailer</p>
+                    </div>
+                    <i id="arrow-3" class="fas fa-long-arrow-alt-right arrow"></i>
+                    <div id="chain-customer" class="icon-wrapper">
+                        <i class="fas fa-users supply-chain-icon"></i>
+                        <p class="icon-label">Customer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: A Week in the Game -->
+        <section id="week" class="section">
+            <div class="reveal">
+                <h2 id="week-title">A Week in the Game</h2>
+            </div>
+            <div class="timeline reveal">
+                <div class="timeline-step">
+                    <div class="step-number">1</div>
+                    <span class="step-label">Receive</span>
+                </div>
+                <i class="fas fa-arrow-right timeline-arrow"></i>
+                <div class="timeline-step">
+                    <div class="step-number">2</div>
+                    <span class="step-label">Ship</span>
+                </div>
+                <i class="fas fa-arrow-right timeline-arrow"></i>
+                <div class="timeline-step">
+                    <div class="step-number">3</div>
+                    <span class="step-label">Record</span>
+                </div>
+                <i class="fas fa-arrow-right timeline-arrow"></i>
+                <div class="timeline-step">
+                    <div class="step-number">4</div>
+                    <span class="step-label">Advance</span>
+                </div>
+                <i class="fas fa-arrow-right timeline-arrow"></i>
+                <div class="timeline-step">
+                    <div class="step-number">5</div>
+                    <span class="step-label">Order</span>
+                </div>
+            </div>
+            <p class="reveal week-description">Receive shipments; ship downstream (backlog if short); record inventory/backlog; advance pipelines; place order upstream (Factory: release production).</p>
+        </section>
+
+        <!-- Section 5: Delays → Bullwhip -->
+        <section id="bullwhip" class="section">
+            <div class="w-full max-w-5xl mx-auto text-center">
+                <div class="reveal">
+                    <h2 id="bullwhip-title">The <span class="highlight-text">Bullwhip Effect</span></h2>
+                    <p id="bullwhip-body">Small changes in customer demand create wild swings as they move up the supply chain. Each player, acting rationally on their own, creates chaos for the system.</p>
+                </div>
+                <div class="chart-container reveal">
+                    <canvas id="bullwhipChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Q: What happens when AI plays the Beer Game? -->
+        <section id="aiq" class="section">
+            <div class="reveal">
+                <h2 id="aiq-title">What happens when AI plays the <span class="highlight-text">Beer Game</span>?</h2>
+            </div>
+            
+            <!-- AI Supply Chain Diagram -->
+            <div class="ai-supply-chain reveal">
+                <div class="ai-chain-node">
+                    <i class="fas fa-industry supply-chain-icon"></i>
+                    <i class="fas fa-robot robot-icon" data-role="factory"></i>
+                    <p class="ai-label">Factory</p>
+                </div>
+                <i class="fas fa-arrow-right chain-arrow"></i>
+                <div class="ai-chain-node">
+                    <i class="fas fa-warehouse supply-chain-icon"></i>
+                    <i class="fas fa-robot robot-icon" data-role="distributor"></i>
+                    <p class="ai-label">Distributor</p>
+                </div>
+                <i class="fas fa-arrow-right chain-arrow"></i>
+                <div class="ai-chain-node">
+                    <i class="fas fa-store supply-chain-icon"></i>
+                    <i class="fas fa-robot robot-icon" data-role="wholesaler"></i>
+                    <p class="ai-label">Wholesaler</p>
+                </div>
+                <i class="fas fa-arrow-right chain-arrow"></i>
+                <div class="ai-chain-node">
+                    <i class="fas fa-users supply-chain-icon"></i>
+                    <i class="fas fa-robot robot-icon" data-role="retailer"></i>
+                    <p class="ai-label">Retailer</p>
+                </div>
+            </div>
+
+            <!-- AI Bullets -->
+            <div class="reveal">
+                <ul id="aiq-bullets">
+                    <li>Do LLMs exhibit the bullwhip effect when managing supply chain roles with limited information?</li>
+                    <li>How does information sharing (customer demand visibility, demand history) impact LLM performance?</li>
+                    <li>Does reducing lead times from two weeks to one week improve LLM coordination?</li>
+                    <li>Can LLMs effectively balance inventory holding costs ($0.50) vs. backlog costs ($1.00)?</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 7: Key Variables -->
+        <section id="vars" class="section">
+            <div class="reveal">
+                <h2 id="vars-title">Key Variables</h2>
+                <ul id="vars-list" class="variables-list">
+                    <li>Holding cost</li>
+                    <li>Backlog (stockout) cost</li>
+                    <li>Shipment delay</li>
+                    <li>Production lead time (Factory)</li>
+                    <li>Fill rate</li>
+                    <li>Total cost</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 8: Try It -->
+        <section id="try" class="section">
+            <div class="reveal">
+                <h2 id="try-title">Try the Simulation</h2>
+            </div>
+            <div class="embed-container reveal">
+                <iframe id="hf-frame" title="Beer Game AI Agents" loading="lazy">
+                </iframe>
+                <p><a id="hf-link" class="btn" target="_blank" rel="noopener">Open in a new tab</a></p>
+            </div>
+        </section>
+
+        <!-- Section 9: Credits -->
+        <section id="credits" class="section">
+            <div class="reveal">
+                <h2 id="credits-title">Credits</h2>
+                <p id="credits-body">This game is developed by Carol Long, David Simchi-Levi, Andre du Pin Calmon, and Flavio du Pin Calmon. For inquiries or collaboration, feel free to reach out via email.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

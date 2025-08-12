@@ -1,0 +1,587 @@
+/* CSS Variables for Role Colors and Design System */
+:root {
+  --retailer: #60a5fa;     /* blue - exact from draft1.html */
+  --wholesaler: #a78bfa;   /* purple - exact from draft1.html */
+  --distributor: #f59e0b;  /* amber - exact from draft1.html */
+  --factory: #f87171;      /* red - exact from draft1.html */
+  --grid: rgba(255, 255, 255, .15);
+  
+  /* Design system colors from draft1.html */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2a2a2a;
+  --text-primary: #f0f0f0;
+  --text-secondary: #d1d5db;
+  --text-muted: #6b7280;
+  --accent: #f59e0b;
+  --border: rgba(255, 255, 255, 0.1);
+  --overlay: rgba(40, 40, 40, 0.85);
+}
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow: hidden; /* Prevent body scroll like draft1.html */
+}
+
+/* Snap Scroll Layout */
+main {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: grid;
+  place-items: center;
+  padding: 6rem 1.25rem;
+  text-align: center;
+}
+
+/* Scroll Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.in-view {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* Typography */
+h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+/* Beer Game highlighting - direct and specific */
+.highlight-text {
+  color: #f59e0b !important; /* Amber color */
+  font-weight: 600 !important;
+}
+
+#hero-title .highlight-text,
+#bullwhip-title .highlight-text {
+  color: #f59e0b !important;
+  font-weight: 600 !important;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+#hero-kicker {
+  font-size: 1.5rem; /* Larger subtitle like draft1.html */
+}
+
+/* Hero Section */
+#hero {
+  background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+}
+
+.scroll-hint {
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.desktop-hint {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.scroll-indicator {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  color: var(--accent);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Interactive Supply Chain Explainer */
+#supply-chain-explainer-section {
+  height: 400vh; /* Tall section for scrolling like draft1.html */
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.supply-chain-sticky-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.chain-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.icon-wrapper {
+  transition: all 0.5s ease-in-out;
+  padding: 1rem;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  text-align: center;
+  position: relative;
+}
+
+.icon-wrapper.highlight {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: scale(1.1);
+}
+
+/* Highlighting the border with the specific color */
+.icon-wrapper.highlight-red { border-color: var(--factory); }
+.icon-wrapper.highlight-purple { border-color: var(--wholesaler); }
+.icon-wrapper.highlight-blue { border-color: var(--retailer); }
+.icon-wrapper.highlight-amber { border-color: var(--distributor); }
+
+/* Supply chain icons - larger than draft1.html */
+.supply-chain-icon {
+  font-size: 4rem !important; /* Even larger than draft1.html's text-5xl (3rem) */
+}
+
+/* Icon labels */
+.icon-label {
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+/* Role-specific icon colors */
+#chain-factory .supply-chain-icon { color: var(--factory); }
+#chain-wholesaler .supply-chain-icon { color: var(--wholesaler); }
+#chain-retailer .supply-chain-icon { color: var(--retailer); }
+#chain-customer .supply-chain-icon { color: var(--distributor); } /* Customer uses amber like draft1.html */
+
+.arrow {
+  font-size: 2rem;
+  color: var(--text-muted);
+  transition: all 0.5s ease-in-out;
+}
+
+.arrow.highlight {
+  color: var(--accent);
+}
+
+/* Explanation content */
+.explanation-content {
+  position: absolute;
+  max-width: 300px;
+  width: 90%;
+  background: var(--overlay);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateY(20px);
+  z-index: 20;
+}
+
+.explanation-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.explanation-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.explanation-text {
+  color: #d1d5db; /* text-gray-300 equivalent */
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Roles Grid - Perfect 2x2 Square on Desktop */
+.roles-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile: single column */
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Tablet and up: 2x2 square formation */
+@media (min-width: 768px) {
+  .roles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 900px; /* Slightly narrower for perfect square proportions */
+  }
+}
+
+.role-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+}
+
+.role-card[data-role="retailer"] {
+  border-color: var(--retailer);
+}
+
+.role-card[data-role="wholesaler"] {
+  border-color: var(--wholesaler);
+}
+
+.role-card[data-role="distributor"] {
+  border-color: var(--distributor);
+}
+
+.role-card[data-role="factory"] {
+  border-color: var(--factory);
+}
+
+.role-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.role-card[data-role="retailer"] .role-icon {
+  color: var(--retailer);
+}
+
+.role-card[data-role="wholesaler"] .role-icon {
+  color: var(--wholesaler);
+}
+
+.role-card[data-role="distributor"] .role-icon {
+  color: var(--distributor);
+}
+
+.role-card[data-role="factory"] .role-icon {
+  color: var(--factory);
+}
+
+.role-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.role-description {
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-number {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.step-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.timeline-arrow {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+
+.week-description {
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+
+/* Bullwhip Chart - matching draft1.html styling */
+.chart-container {
+  background: #374151; /* bg-gray-800 from draft1.html */
+  padding: 2rem;
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+  border: 1px solid #374151; /* border-gray-700 */
+  margin-top: 2rem;
+}
+
+#bullwhipChart {
+  max-width: 100%;
+  height: auto;
+}
+
+/* AI Question Section */
+#aiq {
+  padding-top: 4rem; /* Bring content up */
+}
+
+/* AI Supply Chain Diagram */
+.ai-supply-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 3rem auto;
+  max-width: 800px;
+}
+
+.ai-chain-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  min-width: 120px;
+}
+
+.ai-chain-node .supply-chain-icon {
+  font-size: 3rem; /* Slightly smaller than interactive version */
+}
+
+/* Robot Icons */
+.robot-icon {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.robot-icon[data-role="factory"] {
+  color: var(--factory);
+}
+
+.robot-icon[data-role="distributor"] {
+  color: var(--distributor);
+}
+
+.robot-icon[data-role="wholesaler"] {
+  color: var(--wholesaler);
+}
+
+.robot-icon[data-role="retailer"] {
+  color: var(--retailer);
+}
+
+/* AI Supply Chain Icon Colors */
+.ai-chain-node:nth-child(1) .supply-chain-icon { color: var(--factory); }
+.ai-chain-node:nth-child(3) .supply-chain-icon { color: var(--distributor); }
+.ai-chain-node:nth-child(5) .supply-chain-icon { color: var(--wholesaler); }
+.ai-chain-node:nth-child(7) .supply-chain-icon { color: var(--retailer); }
+
+.ai-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* AI Bullets */
+#aiq-bullets {
+  list-style: none;
+  text-align: left;
+  max-width: 50ch;
+  margin: 2rem auto 0;
+}
+
+#aiq-bullets li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+#aiq-bullets li::before {
+  content: "•";
+  color: var(--accent);
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  top: -0.25rem;
+}
+
+/* Variables List */
+.variables-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 800px;
+  margin: 2rem auto 0;
+}
+
+.variables-list li {
+  background: var(--bg-secondary);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+
+/* Embed Section */
+.embed-container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 2rem auto 0;
+}
+
+#hf-frame {
+  width: 100%;
+  height: 640px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg-primary);
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  .section {
+    padding: 4rem 1rem;
+  }
+  
+  .chain-diagram,
+  .timeline {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .chain-arrow,
+  .timeline-arrow {
+    transform: rotate(90deg);
+  }
+  
+  .roles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .variables-list {
+    grid-template-columns: 1fr;
+  }
+  
+  #hf-frame {
+    height: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .section {
+    padding: 3rem 1rem;
+  }
+  
+  .role-card {
+    padding: 1.5rem;
+  }
+  
+  #hf-frame {
+    height: 400px;
+  }
+}
+
