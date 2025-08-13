@@ -4,6 +4,7 @@
   --wholesaler: #a78bfa;   /* purple - exact from draft1.html */
   --distributor: #f59e0b;  /* amber - exact from draft1.html */
   --factory: #f87171;      /* red - exact from draft1.html */
+  --customer: #10b981;     /* emerald green - for complete 5-stage supply chain */
   --grid: rgba(255, 255, 255, .15);
   
   /* Design system colors from draft1.html */
@@ -203,10 +204,11 @@ p {
 }
 
 /* Role-specific icon colors */
-#chain-factory .supply-chain-icon { color: var(--factory); }
-#chain-wholesaler .supply-chain-icon { color: var(--wholesaler); }
+#chain-customer .supply-chain-icon { color: var(--customer); }
 #chain-retailer .supply-chain-icon { color: var(--retailer); }
-#chain-customer .supply-chain-icon { color: var(--distributor); } /* Customer uses amber like draft1.html */
+#chain-wholesaler .supply-chain-icon { color: var(--wholesaler); }
+#chain-distributor .supply-chain-icon { color: var(--distributor); }
+#chain-factory .supply-chain-icon { color: var(--factory); }
 
 .arrow {
   font-size: 2rem;
@@ -401,10 +403,11 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  gap: 1rem;
+  flex-wrap: nowrap;
   margin: 3rem auto;
-  max-width: 800px;
+  max-width: 1000px;
+  overflow-x: auto;
 }
 
 .ai-chain-node {
@@ -413,7 +416,8 @@ p {
   align-items: center;
   gap: 0.5rem;
   position: relative;
-  min-width: 120px;
+  min-width: 100px;
+  flex-shrink: 0;
 }
 
 .ai-chain-node .supply-chain-icon {
@@ -426,27 +430,32 @@ p {
   margin-top: 0.5rem;
 }
 
-.robot-icon[data-role="factory"] {
-  color: var(--factory);
-}
-
-.robot-icon[data-role="distributor"] {
-  color: var(--distributor);
-}
-
-.robot-icon[data-role="wholesaler"] {
-  color: var(--wholesaler);
+.robot-icon[data-role="customer"] {
+  color: var(--customer);
 }
 
 .robot-icon[data-role="retailer"] {
   color: var(--retailer);
 }
 
+.robot-icon[data-role="wholesaler"] {
+  color: var(--wholesaler);
+}
+
+.robot-icon[data-role="distributor"] {
+  color: var(--distributor);
+}
+
+.robot-icon[data-role="factory"] {
+  color: var(--factory);
+}
+
 /* AI Supply Chain Icon Colors */
-.ai-chain-node:nth-child(1) .supply-chain-icon { color: var(--factory); }
-.ai-chain-node:nth-child(3) .supply-chain-icon { color: var(--distributor); }
+.ai-chain-node:nth-child(1) .supply-chain-icon { color: var(--customer); }
+.ai-chain-node:nth-child(3) .supply-chain-icon { color: var(--retailer); }
 .ai-chain-node:nth-child(5) .supply-chain-icon { color: var(--wholesaler); }
-.ai-chain-node:nth-child(7) .supply-chain-icon { color: var(--retailer); }
+.ai-chain-node:nth-child(7) .supply-chain-icon { color: var(--distributor); }
+.ai-chain-node:nth-child(9) .supply-chain-icon { color: var(--factory); }
 
 .ai-label {
   font-weight: 600;

@@ -176,41 +176,48 @@ function initSupplyChainExplainer() {
     if (!scrollContainer || !explainerSection || !explanationContainer) return;
 
     const icons = {
-        factory: document.getElementById('chain-factory'),
-        wholesaler: document.getElementById('chain-wholesaler'),
-        retailer: document.getElementById('chain-retailer'),
         customer: document.getElementById('chain-customer'),
+        retailer: document.getElementById('chain-retailer'),
+        wholesaler: document.getElementById('chain-wholesaler'),
+        distributor: document.getElementById('chain-distributor'),
+        factory: document.getElementById('chain-factory'),
     };
     const arrows = [
         document.getElementById('arrow-1'),
         document.getElementById('arrow-2'),
         document.getElementById('arrow-3'),
+        document.getElementById('arrow-4'),
     ];
 
     const explanations = {
-        factory: {
-            title: "The Factory",
-            text: "The start of the production line. They have the longest lead times and see the most distorted demand signal, leading to massive overproduction or shortages.",
-            highlightClass: 'highlight-red'
-        },
-        wholesaler: {
-            title: "The Wholesaler",
-            text: "Fulfills orders from many retailers. They face amplified demand variability and must order from the factory, adding another layer of forecasting and delay.",
-            highlightClass: 'highlight-purple'
+        customer: {
+            title: "The Customer",
+            text: "Their demand is the only real input to the system. They simply want to buy beer. Their demand is surprisingly stable, but their actions kickstart the entire chain.",
+            highlightClass: 'highlight-amber'
         },
         retailer: {
             title: "The Retailer",
             text: "Tries to meet customer demand while keeping inventory low. They place orders to the wholesaler based on what they *think* future demand will be.",
             highlightClass: 'highlight-blue'
         },
-        customer: {
-            title: "The Customer",
-            text: "Their demand is the only real input to the system. They simply want to buy beer. Their demand is surprisingly stable, but their actions kickstart the entire chain.",
+        wholesaler: {
+            title: "The Wholesaler",
+            text: "Fulfills orders from many retailers. They face amplified demand variability and must order from the distributor, adding another layer of forecasting and delay.",
+            highlightClass: 'highlight-purple'
+        },
+        distributor: {
+            title: "The Distributor",
+            text: "Bridges factory production and regional markets. Manages bulk inventory distribution to multiple wholesalers, facing amplified demand variability and longer lead times.",
             highlightClass: 'highlight-amber'
+        },
+        factory: {
+            title: "The Factory",
+            text: "The start of the production line. They have the longest lead times and see the most distorted demand signal, leading to massive overproduction or shortages.",
+            highlightClass: 'highlight-red'
         },
         orders: {
             title: "Goods vs. Information",
-            text: "Goods flow <span class='highlight-text'>downstream</span> to the customer, while orders (information) flow <span class='highlight-text'>upstream</span> to the factory. Delays in this information flow are a primary cause of the bullwhip effect.",
+            text: "Goods flow <span class='highlight-text'>downstream</span> from factory to customers, while orders (information) flow <span class='highlight-text'>upstream</span> from customers to factory. Delays in this information flow cause the bullwhip effect.",
         }
     };
 
@@ -227,8 +234,8 @@ function initSupplyChainExplainer() {
         arrows.forEach(arrow => {
             if (arrow) {
                 arrow.classList.remove('highlight');
-                arrow.classList.remove('fa-long-arrow-alt-left');
-                arrow.classList.add('fa-long-arrow-alt-right');
+                arrow.classList.remove('fa-long-arrow-alt-right');
+                arrow.classList.add('fa-long-arrow-alt-left');
             }
         });
         explanationContainer.innerHTML = '';
@@ -255,9 +262,9 @@ function initSupplyChainExplainer() {
                 arrows.forEach(arrow => {
                     if (arrow) {
                         arrow.classList.add('highlight');
-                        // Flip arrows to show upstream information flow
-                        arrow.classList.remove('fa-long-arrow-alt-right');
-                        arrow.classList.add('fa-long-arrow-alt-left');
+                        // Flip arrows to show upstream information flow (from left-pointing to right-pointing)
+                        arrow.classList.remove('fa-long-arrow-alt-left');
+                        arrow.classList.add('fa-long-arrow-alt-right');
                     }
                 });
                 // Position above the supply chain icons, not overlapping
@@ -271,7 +278,7 @@ function initSupplyChainExplainer() {
         }
     }
 
-    const steps = ['factory', 'wholesaler', 'retailer', 'customer', 'orders'];
+    const steps = ['customer', 'retailer', 'wholesaler', 'distributor', 'factory', 'orders'];
 
     scrollContainer.addEventListener('scroll', () => {
         const { scrollTop, clientHeight } = scrollContainer;

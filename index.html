@@ -60,24 +60,29 @@
 
                 <!-- Sticky Supply Chain Diagram -->
                 <div class="chain-container">
-                    <div id="chain-factory" class="icon-wrapper">
-                        <i class="fas fa-industry supply-chain-icon"></i>
-                        <p class="icon-label">Factory</p>
+                    <div id="chain-customer" class="icon-wrapper">
+                        <i class="fas fa-users supply-chain-icon"></i>
+                        <p class="icon-label">Customer</p>
                     </div>
-                    <i id="arrow-1" class="fas fa-long-arrow-alt-right arrow"></i>
-                    <div id="chain-wholesaler" class="icon-wrapper">
-                        <i class="fas fa-warehouse supply-chain-icon"></i>
-                        <p class="icon-label">Wholesaler</p>
-                    </div>
-                    <i id="arrow-2" class="fas fa-long-arrow-alt-right arrow"></i>
+                    <i id="arrow-1" class="fas fa-long-arrow-alt-left arrow"></i>
                     <div id="chain-retailer" class="icon-wrapper">
                         <i class="fas fa-store supply-chain-icon"></i>
                         <p class="icon-label">Retailer</p>
                     </div>
-                    <i id="arrow-3" class="fas fa-long-arrow-alt-right arrow"></i>
-                    <div id="chain-customer" class="icon-wrapper">
-                        <i class="fas fa-users supply-chain-icon"></i>
-                        <p class="icon-label">Customer</p>
+                    <i id="arrow-2" class="fas fa-long-arrow-alt-left arrow"></i>
+                    <div id="chain-wholesaler" class="icon-wrapper">
+                        <i class="fas fa-warehouse supply-chain-icon"></i>
+                        <p class="icon-label">Wholesaler</p>
+                    </div>
+                    <i id="arrow-3" class="fas fa-long-arrow-alt-left arrow"></i>
+                    <div id="chain-distributor" class="icon-wrapper">
+                        <i class="fas fa-truck supply-chain-icon"></i>
+                        <p class="icon-label">Distributor</p>
+                    </div>
+                    <i id="arrow-4" class="fas fa-long-arrow-alt-left arrow"></i>
+                    <div id="chain-factory" class="icon-wrapper">
+                        <i class="fas fa-industry supply-chain-icon"></i>
+                        <p class="icon-label">Factory</p>
                     </div>
                 </div>
             </div>
@@ -139,27 +144,33 @@
             <!-- AI Supply Chain Diagram -->
             <div class="ai-supply-chain reveal">
                 <div class="ai-chain-node">
-                    <i class="fas fa-industry supply-chain-icon"></i>
-                    <i class="fas fa-robot robot-icon" data-role="factory"></i>
-                    <p class="ai-label">Factory</p>
+                    <i class="fas fa-users supply-chain-icon"></i>
+                    <i class="fas fa-robot robot-icon" data-role="customer"></i>
+                    <p class="ai-label">Customer</p>
                 </div>
-                <i class="fas fa-arrow-right chain-arrow"></i>
-                <div class="ai-chain-node">
-                    <i class="fas fa-warehouse supply-chain-icon"></i>
-                    <i class="fas fa-robot robot-icon" data-role="distributor"></i>
-                    <p class="ai-label">Distributor</p>
-                </div>
-                <i class="fas fa-arrow-right chain-arrow"></i>
+                <i class="fas fa-arrow-left chain-arrow"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-store supply-chain-icon"></i>
+                    <i class="fas fa-robot robot-icon" data-role="retailer"></i>
+                    <p class="ai-label">Retailer</p>
+                </div>
+                <i class="fas fa-arrow-left chain-arrow"></i>
+                <div class="ai-chain-node">
+                    <i class="fas fa-warehouse supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="wholesaler"></i>
                     <p class="ai-label">Wholesaler</p>
                 </div>
-                <i class="fas fa-arrow-right chain-arrow"></i>
+                <i class="fas fa-arrow-left chain-arrow"></i>
                 <div class="ai-chain-node">
-                    <i class="fas fa-users supply-chain-icon"></i>
-                    <i class="fas fa-robot robot-icon" data-role="retailer"></i>
-                    <p class="ai-label">Retailer</p>
+                    <i class="fas fa-truck supply-chain-icon"></i>
+                    <i class="fas fa-robot robot-icon" data-role="distributor"></i>
+                    <p class="ai-label">Distributor</p>
+                </div>
+                <i class="fas fa-arrow-left chain-arrow"></i>
+                <div class="ai-chain-node">
+                    <i class="fas fa-industry supply-chain-icon"></i>
+                    <i class="fas fa-robot robot-icon" data-role="factory"></i>
+                    <p class="ai-label">Factory</p>
                 </div>
             </div>
 
