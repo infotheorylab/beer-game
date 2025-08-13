@@ -23,7 +23,16 @@
             </div>
         </section>
 
-        <!-- Section 2: The Four Roles -->
+        <!-- Section 2: What is the Beer Game? -->
+        <section id="beer-game-info" class="section">
+            <div class="reveal">
+                <h2 id="beer-game-info-title">What is the <span class="highlight-text">Beer Game</span>?</h2>
+                <p id="beer-game-info-body">Content loaded from JSON</p>
+                <p id="beer-game-info-question" class="section-question" style="margin-top: 2rem; font-size: 1.25rem; font-weight: 600;">What happens when AI 🤖 plays the Beer Game?</p>
+            </div>
+        </section>
+
+        <!-- Section 3: The Four Roles -->
         <section id="roles" class="section">
             <div class="reveal">
                 <h2 id="roles-title">The <span class="highlight-text">Four Roles</span></h2>
@@ -60,29 +69,29 @@
 
                 <!-- Sticky Supply Chain Diagram -->
                 <div class="chain-container">
-                    <div id="chain-customer" class="icon-wrapper">
+                    <div id="chain-customer" class="ai-chain-node">
                         <i class="fas fa-users supply-chain-icon"></i>
-                        <p class="icon-label">Customer</p>
+                        <p class="ai-label">Customer</p>
                     </div>
                     <i id="arrow-1" class="fas fa-long-arrow-alt-left arrow"></i>
-                    <div id="chain-retailer" class="icon-wrapper">
+                    <div id="chain-retailer" class="ai-chain-node">
                         <i class="fas fa-store supply-chain-icon"></i>
-                        <p class="icon-label">Retailer</p>
+                        <p class="ai-label">Retailer</p>
                     </div>
                     <i id="arrow-2" class="fas fa-long-arrow-alt-left arrow"></i>
-                    <div id="chain-wholesaler" class="icon-wrapper">
+                    <div id="chain-wholesaler" class="ai-chain-node">
                         <i class="fas fa-warehouse supply-chain-icon"></i>
-                        <p class="icon-label">Wholesaler</p>
+                        <p class="ai-label">Wholesaler</p>
                     </div>
                     <i id="arrow-3" class="fas fa-long-arrow-alt-left arrow"></i>
-                    <div id="chain-distributor" class="icon-wrapper">
+                    <div id="chain-distributor" class="ai-chain-node">
                         <i class="fas fa-truck supply-chain-icon"></i>
-                        <p class="icon-label">Distributor</p>
+                        <p class="ai-label">Distributor</p>
                     </div>
                     <i id="arrow-4" class="fas fa-long-arrow-alt-left arrow"></i>
-                    <div id="chain-factory" class="icon-wrapper">
+                    <div id="chain-factory" class="ai-chain-node">
                         <i class="fas fa-industry supply-chain-icon"></i>
-                        <p class="icon-label">Factory</p>
+                        <p class="ai-label">Factory</p>
                     </div>
                 </div>
             </div>
@@ -145,28 +154,27 @@
             <div class="ai-supply-chain reveal">
                 <div class="ai-chain-node">
                     <i class="fas fa-users supply-chain-icon"></i>
-                    <i class="fas fa-robot robot-icon" data-role="customer"></i>
                     <p class="ai-label">Customer</p>
                 </div>
-                <i class="fas fa-arrow-left chain-arrow"></i>
+                <i class="fas fa-long-arrow-alt-left chain-arrow"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-store supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="retailer"></i>
                     <p class="ai-label">Retailer</p>
                 </div>
-                <i class="fas fa-arrow-left chain-arrow"></i>
+                <i class="fas fa-long-arrow-alt-left chain-arrow"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-warehouse supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="wholesaler"></i>
                     <p class="ai-label">Wholesaler</p>
                 </div>
-                <i class="fas fa-arrow-left chain-arrow"></i>
+                <i class="fas fa-long-arrow-alt-left chain-arrow"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-truck supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="distributor"></i>
                     <p class="ai-label">Distributor</p>
                 </div>
-                <i class="fas fa-arrow-left chain-arrow"></i>
+                <i class="fas fa-long-arrow-alt-left chain-arrow"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-industry supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="factory"></i>

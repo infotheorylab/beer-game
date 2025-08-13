@@ -6,6 +6,11 @@
       "title": "The Beer Game",
       "kicker": "Can AI agents 🤖 manage a classic supply chain exercise?"
     },
+    "beer-game-info": {
+      "title": "What is the Beer Game?",
+      "body": "The <span class=\"highlight-text\">Beer Distribution Game</span> was developed at MIT in the 1960s and has become a cornerstone of MBA and executive education worldwide. This supply chain simulation challenges players to minimize total costs while managing inventory and avoiding stockouts across four interconnected roles. The game demonstrates how information delays and limited visibility create the famous \"Bullwhip Effect\" - where small changes in customer demand amplify into wild swings upstream. <a href=\"https://web.mit.edu/jsterman/www/SDG/T-00-02.pdf\" target=\"_blank\">Learn about its origins at MIT</a>.",
+      "question": "<span class=\"highlight-text\">What happens when AI 🤖 plays the Beer Game?</span>"
+    },
     "roles": {
       "title": "The Four Roles",
       "items": [

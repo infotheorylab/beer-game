@@ -44,7 +44,7 @@ function populateContent(data) {
     }
     
     // Update other sections
-    const sections = ['what', 'roles', 'week', 'bullwhip', 'aiq', 'vars', 'try', 'credits'];
+    const sections = ['beer-game-info', 'roles', 'week', 'bullwhip', 'aiq', 'vars', 'try', 'credits'];
     sections.forEach(section => {
         if (data.slides?.[section]) {
             updateSection(section, data.slides[section]);
@@ -80,7 +80,23 @@ function updateSection(sectionName, sectionData) {
     
     // Update body text
     if (sectionData.body) {
-        updateElement(`${sectionName}-body`, sectionData.body);
+        const element = document.getElementById(`${sectionName}-body`);
+        if (element) {
+            // Use innerHTML for beer-game-info to support links
+            if (sectionName === 'beer-game-info') {
+                element.innerHTML = sectionData.body;
+            } else {
+                element.textContent = sectionData.body;
+            }
+        }
+    }
+    
+    // Update question text (for beer-game-info section)
+    if (sectionData.question) {
+        const element = document.getElementById(`${sectionName}-question`);
+        if (element) {
+            element.innerHTML = sectionData.question;
+        }
     }
     
     // Handle special cases
