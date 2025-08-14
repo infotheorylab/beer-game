@@ -131,18 +131,18 @@
             <p class="reveal week-description">Receive shipments; ship downstream (backlog if short); record inventory/backlog; advance pipelines; place order upstream (Factory: release production).</p>
         </section>
 
-        <!-- Section 5: Delays → Bullwhip -->
-        <section id="bullwhip" class="section">
-            <div class="w-full max-w-5xl mx-auto text-center">
-                <div class="reveal">
-                    <h2 id="bullwhip-title">The <span class="highlight-text">Bullwhip Effect</span></h2>
-                    <p id="bullwhip-body">Small changes in customer demand create wild swings as they move up the supply chain. Each player, acting rationally on their own, creates chaos for the system.</p>
-                </div>
-                <div class="chart-container reveal">
-                    <canvas id="bullwhipChart"></canvas>
+        <!-- Section 5: Progressive Bullwhip Effect -->
+        <div id="bullwhip-progressive-section">
+            <div class="bullwhip-sticky-wrapper">
+                <!-- Dynamic explanations will be injected here by JS -->
+                <div id="bullwhip-explanation-container"></div>
+
+                <!-- Sticky Fixed Chart -->
+                <div class="bullwhip-chart-container">
+                    <canvas id="bullwhipProgressiveChart"></canvas>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- Section 6: Q: What happens when AI plays the Beer Game? -->
         <section id="aiq" class="section">
