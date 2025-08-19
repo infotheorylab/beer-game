@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize interactive supply chain explainer
     initSupplyChainExplainer();
     
-    // Initialize bullwhip chart
-    initBullwhipChart();
+    // Initialize progressive bullwhip chart
+    initProgressiveBullwhipChart();
     
     // Initialize Hugging Face embed
     initHuggingFaceEmbed();
@@ -43,8 +43,8 @@ function populateContent(data) {
         updateElement('hero-kicker', hero.kicker);
     }
     
-    // Update other sections
-    const sections = ['beer-game-info', 'roles', 'week', 'bullwhip', 'aiq', 'vars', 'try', 'credits'];
+    // Update other sections  
+    const sections = ['beer-game-info', 'roles', 'week', 'aiq', 'vars', 'try', 'credits'];
     sections.forEach(section => {
         if (data.slides?.[section]) {
             updateSection(section, data.slides[section]);
@@ -64,7 +64,7 @@ function updateElement(id, content) {
     const element = document.getElementById(id);
     if (element && content) {
         // Special handling for titles that need highlighting
-        if (id === 'hero-title' || id === 'bullwhip-title' || id === 'roles-title' || id === 'aiq-title') {
+        if (id === 'hero-title' || id === 'roles-title' || id === 'aiq-title') {
             // Don't overwrite titles with highlight spans - they're already in HTML
             return;
         }
@@ -312,79 +312,158 @@ function initSupplyChainExplainer() {
     });
 }
 
-// Bullwhip Chart (exact from draft1.html)
-function initBullwhipChart() {
-    const chartObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                renderBullwhipChart();
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
+// Progressive Bullwhip Chart (Fixed Chart with Dynamic Lines)
+let progressiveBullwhipChart = null;
+let currentBullwhipStep = 0;
 
-    const chart = document.getElementById('bullwhipChart');
-    if (chart) {
-        chartObserver.observe(chart);
+function initProgressiveBullwhipChart() {
+    const scrollContainer = document.querySelector('main');
+    const progressiveSection = document.getElementById('bullwhip-progressive-section');
+    const explanationContainer = document.getElementById('bullwhip-explanation-container');
+
+    if (!scrollContainer || !progressiveSection || !explanationContainer) return;
+
+    // Create the initial chart
+    createBullwhipChart();
+
+    const explanations = {
+        0: {
+            title: "The Bullwhip Effect",
+            text: "Customer demand stays remarkably stable - just a small step change from 8 to 12 units, then back to 8. This is the only real input to the system.",
+            highlightClass: 'customer-text'
+        },
+        1: {
+            title: "The Retailer Response",
+            text: "The Retailer sees customer demand and tries to maintain inventory. Notice how their orders already show more variability than actual customer demand.",
+            highlightClass: 'retailer-text'
+        },
+        2: {
+            title: "The Wholesaler Amplifies",
+            text: "The Wholesaler faces amplified demand from the Retailer and adds their own forecasting errors. Orders become even more volatile.",
+            highlightClass: 'wholesaler-text'
+        },
+        3: {
+            title: "The Factory Chaos",
+            text: "By the time demand signals reach the Factory, they're completely distorted. Small customer changes create massive production swings - from 28 units to 0!",
+            highlightClass: 'factory-text'
+        },
+        4: {
+            title: "The Complete Bullwhip Effect",
+            text: "This is the bullwhip effect: stable customer demand creates chaos upstream. Each player acts rationally but lacks information, amplifying variability at every step.",
+            highlightClass: ''
+        }
+    };
+
+    function updateBullwhipStep(step) {
+        if (currentBullwhipStep === step) return;
+        
+        const previousStep = currentBullwhipStep;
+        currentBullwhipStep = step;
+
+        // Show the next dataset if moving forward
+        if (step > previousStep && step <= 3) {
+            showNextDataset(step);
+        }
+
+        // Update explanation only if step changed
+        if (step !== previousStep) {
+            updateBullwhipExplanation(step, explanations[step]);
+        }
     }
+
+    let scrollTimeout = null;
+    
+    scrollContainer.addEventListener('scroll', () => {
+        // Debounce scroll events to prevent rapid updates
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        
+        scrollTimeout = setTimeout(() => {
+            const { scrollTop, clientHeight } = scrollContainer;
+            const sectionTop = progressiveSection.offsetTop;
+            const sectionHeight = progressiveSection.offsetHeight;
+
+            // Check if we are within the progressive section
+            if (scrollTop >= sectionTop - clientHeight / 3 && scrollTop < sectionTop + sectionHeight - clientHeight / 3) {
+                const scrollPortion = (scrollTop - sectionTop) / (sectionHeight - clientHeight);
+                
+                // Create more precise thresholds with hysteresis
+                let stepIndex = 0;
+                if (scrollPortion > 0.15) stepIndex = 1;
+                if (scrollPortion > 0.35) stepIndex = 2; 
+                if (scrollPortion > 0.55) stepIndex = 3;
+                if (scrollPortion > 0.75) stepIndex = 4;
+                
+                stepIndex = Math.max(0, Math.min(4, stepIndex));
+                updateBullwhipStep(stepIndex);
+            }
+        }, 16); // ~60fps throttling
+    });
 }
 
-function renderBullwhipChart() {
-    const ctx = document.getElementById('bullwhipChart');
+function createBullwhipChart() {
+    const ctx = document.getElementById('bullwhipProgressiveChart');
     if (!ctx) return;
-    
-    const context = ctx.getContext('2d');
-    const labels = Array.from({ length: 20 }, (_, i) => `Week ${i + 1}`);
-    
-    // Exact data from draft1.html
-    const customerDemand = [8, 8, 8, 8, 12, 12, 12, 12, 8, 8, 8, 8, 12, 12, 12, 12, 8, 8, 8, 8];
-    const retailerOrders = [8, 8, 8, 16, 16, 12, 12, 8, 8, 8, 16, 16, 12, 12, 8, 8, 8, 8, 12, 12];
-    const wholesalerOrders = [8, 8, 12, 20, 20, 16, 8, 4, 8, 12, 20, 20, 16, 8, 4, 4, 8, 12, 16, 16];
-    const factoryOrders = [8, 10, 16, 24, 24, 16, 0, 0, 4, 12, 24, 28, 20, 4, 0, 0, 8, 16, 20, 20];
 
-    new Chart(context, {
+    const labels = Array.from({ length: 20 }, (_, i) => `Week ${i + 1}`);
+
+    // Pre-load all datasets, with only customer demand visible initially
+    const allDatasets = [
+        {
+            label: 'Customer Demand',
+            data: [8, 8, 8, 8, 12, 12, 12, 12, 8, 8, 8, 8, 12, 12, 12, 12, 8, 8, 8, 8],
+            borderColor: '#f59e0b', // Amber
+            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+            borderWidth: 3,
+            tension: 0.4,
+            pointRadius: 0,
+            hidden: false, // Visible from start
+        },
+        {
+            label: 'Retailer Orders',
+            data: [8, 8, 8, 16, 16, 12, 12, 8, 8, 8, 16, 16, 12, 12, 8, 8, 8, 8, 12, 12],
+            borderColor: '#60a5fa', // Blue
+            backgroundColor: 'rgba(96, 165, 250, 0.1)',
+            borderWidth: 3,
+            tension: 0.4,
+            pointRadius: 0,
+            hidden: true, // Hidden initially
+        },
+        {
+            label: 'Wholesaler Orders',
+            data: [8, 8, 12, 20, 20, 16, 8, 4, 8, 12, 20, 20, 16, 8, 4, 4, 8, 12, 16, 16],
+            borderColor: '#a78bfa', // Purple
+            backgroundColor: 'rgba(167, 139, 250, 0.1)',
+            borderWidth: 3,
+            tension: 0.4,
+            pointRadius: 0,
+            hidden: true, // Hidden initially
+        },
+        {
+            label: 'Factory Production',
+            data: [8, 10, 16, 24, 24, 16, 0, 0, 4, 12, 24, 28, 20, 4, 0, 0, 8, 16, 20, 20],
+            borderColor: '#f87171', // Red
+            backgroundColor: 'rgba(248, 113, 113, 0.1)',
+            borderWidth: 3,
+            tension: 0.4,
+            pointRadius: 0,
+            hidden: true, // Hidden initially
+        }
+    ];
+
+    progressiveBullwhipChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
-            datasets: [{
-                label: 'Factory Production',
-                data: factoryOrders,
-                borderColor: '#f87171', // Red - exact from draft1.html
-                backgroundColor: 'rgba(248, 113, 113, 0.1)',
-                borderWidth: 3,
-                tension: 0.4,
-                pointRadius: 0,
-            }, {
-                label: 'Wholesaler Orders',
-                data: wholesalerOrders,
-                borderColor: '#a78bfa', // Purple - exact from draft1.html
-                backgroundColor: 'rgba(167, 139, 250, 0.1)',
-                borderWidth: 3,
-                tension: 0.4,
-                pointRadius: 0,
-            }, {
-                label: 'Retailer Orders',
-                data: retailerOrders,
-                borderColor: '#60a5fa', // Blue - exact from draft1.html
-                backgroundColor: 'rgba(96, 165, 250, 0.1)',
-                borderWidth: 3,
-                tension: 0.4,
-                pointRadius: 0,
-            }, {
-                label: 'Customer Demand',
-                data: customerDemand,
-                borderColor: '#f59e0b', // Amber - exact from draft1.html
-                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                borderWidth: 3,
-                tension: 0.4,
-                pointRadius: 0,
-            }]
+            datasets: allDatasets
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             animation: {
-                duration: 2000,
-                easing: 'easeInOutQuad',
+                duration: 1500,
+                easing: 'easeInOutQuart',
             },
             scales: {
                 y: {
@@ -404,9 +483,56 @@ function renderBullwhipChart() {
                         font: { size: 14 }
                     }
                 }
+            },
+            elements: {
+                line: {
+                    // Ensure smooth line rendering
+                    borderJoinStyle: 'round',
+                    borderCapStyle: 'round'
+                }
             }
         }
     });
+}
+
+function showNextDataset(step) {
+    if (!progressiveBullwhipChart) return;
+
+    // Map steps to dataset indices
+    // Step 0: Customer Demand (already visible)
+    // Step 1: + Retailer Orders (dataset index 1)
+    // Step 2: + Wholesaler Orders (dataset index 2)  
+    // Step 3: + Factory Production (dataset index 3)
+    // Step 4: All lines visible (no action needed)
+
+    const datasetIndex = step;
+    
+    // Show the dataset if it exists and is currently hidden
+    if (datasetIndex > 0 && datasetIndex < progressiveBullwhipChart.data.datasets.length) {
+        const dataset = progressiveBullwhipChart.data.datasets[datasetIndex];
+        if (dataset && dataset.hidden) {
+            progressiveBullwhipChart.show(datasetIndex);
+        }
+    }
+}
+
+function updateBullwhipExplanation(step, explanation) {
+    const explanationContainer = document.getElementById('bullwhip-explanation-container');
+    if (!explanationContainer || !explanation) return;
+
+    // Clear previous explanation
+    explanationContainer.innerHTML = '';
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = `bullwhip-explanation-content ${explanation.highlightClass}`;
+    contentDiv.innerHTML = `
+        <h3 class="bullwhip-explanation-title highlight-text">${explanation.title}</h3>
+        <p class="bullwhip-explanation-text ${explanation.highlightClass}">${explanation.text}</p>
+    `;
+    explanationContainer.appendChild(contentDiv);
+
+    // Trigger fade-in
+    setTimeout(() => contentDiv.classList.add('visible'), 50);
 }
 
 // Hugging Face Embed

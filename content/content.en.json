@@ -36,9 +36,35 @@
       "title": "A Week in the Game",
       "steps": ["Receive", "Ship", "Record", "Advance", "Order"]
     },
-    "bullwhip": {
-      "title": "The Bullwhip Effect",
-      "body": "Small changes in customer demand create wild swings as they move up the supply chain. Each player, acting rationally on their own, creates chaos for the system."
+    "bullwhip-progressive": {
+      "title": "The Progressive Bullwhip Effect",
+      "explanations": [
+        {
+          "title": "The Bullwhip Effect",
+          "text": "Customer demand stays remarkably stable - just a small step change from 8 to 12 units, then back to 8. This is the only real input to the system.",
+          "highlightClass": "customer-text"
+        },
+        {
+          "title": "The Retailer Response", 
+          "text": "The Retailer sees customer demand and tries to maintain inventory. Notice how their orders already show more variability than actual customer demand.",
+          "highlightClass": "retailer-text"
+        },
+        {
+          "title": "The Wholesaler Amplifies",
+          "text": "The Wholesaler faces amplified demand from the Retailer and adds their own forecasting errors. Orders become even more volatile.",
+          "highlightClass": "wholesaler-text"
+        },
+        {
+          "title": "The Factory Chaos",
+          "text": "By the time demand signals reach the Factory, they're completely distorted. Small customer changes create massive production swings - from 28 units to 0!",
+          "highlightClass": "factory-text"
+        },
+        {
+          "title": "The Complete Bullwhip Effect",
+          "text": "This is the bullwhip effect: stable customer demand creates chaos upstream. Each player acts rationally but lacks information, amplifying variability at every step.",
+          "highlightClass": ""
+        }
+      ]
     },
     "aiq": {
       "title": "What happens when AI plays the Beer Game?",

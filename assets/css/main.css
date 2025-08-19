@@ -152,7 +152,25 @@ p {
   position: relative;
 }
 
+/* Progressive Bullwhip Effect Section */
+#bullwhip-progressive-section {
+  height: 400vh; /* Tall section for scrolling through 5 steps */
+  scroll-snap-align: start;
+  position: relative;
+}
+
 .supply-chain-sticky-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.bullwhip-sticky-wrapper {
   position: sticky;
   top: 0;
   height: 100vh;
@@ -378,19 +396,86 @@ p {
   font-size: 1rem;
 }
 
-/* Bullwhip Chart - matching draft1.html styling */
-.chart-container {
+/* Bullwhip Chart Container */
+.bullwhip-chart-container {
   background: #374151; /* bg-gray-800 from draft1.html */
   padding: 2rem;
   border-radius: 1rem; /* rounded-2xl */
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
   border: 1px solid #374151; /* border-gray-700 */
-  margin-top: 2rem;
+  width: 90%;
+  max-width: 1000px;
+  height: 500px;
+  position: relative;
 }
 
-#bullwhipChart {
-  max-width: 100%;
-  height: auto;
+#bullwhipProgressiveChart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Bullwhip Explanation Container */
+#bullwhip-explanation-container {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  max-width: 350px;
+  z-index: 10;
+}
+
+.bullwhip-explanation-content {
+  background: var(--overlay);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.bullwhip-explanation-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bullwhip-explanation-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.bullwhip-explanation-text {
+  color: #d1d5db;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Color-coded text for bullwhip explanations */
+.customer-text {
+  color: var(--distributor) !important; /* Amber #f59e0b - matches customer demand line */
+}
+
+.retailer-text {
+  color: var(--retailer) !important; /* Blue #60a5fa - matches retailer orders line */
+}
+
+.wholesaler-text {
+  color: var(--wholesaler) !important; /* Purple #a78bfa - matches wholesaler orders line */
+}
+
+.factory-text {
+  color: var(--factory) !important; /* Red #f87171 - matches factory production line */
+}
+
+/* Legacy chart container for backward compatibility */
+.chart-container {
+  background: #374151;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #374151;
+  margin-top: 2rem;
 }
 
 /* AI Question Section */
