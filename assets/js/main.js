@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Content Loading
 function loadContent() {
-    fetch('/content/content.en.json')
+    fetch('./content/content.en.json')
         .then(response => response.json())
         .then(data => {
             populateContent(data);
@@ -44,7 +44,7 @@ function populateContent(data) {
     }
     
     // Update other sections  
-    const sections = ['beer-game-info', 'roles', 'week', 'aiq', 'vars', 'try', 'credits'];
+    const sections = ['beer-game-info', 'llm-beer-game', 'roles', 'week', 'aiq', 'vars', 'try', 'credits'];
     sections.forEach(section => {
         if (data.slides?.[section]) {
             updateSection(section, data.slides[section]);
@@ -64,7 +64,7 @@ function updateElement(id, content) {
     const element = document.getElementById(id);
     if (element && content) {
         // Special handling for titles that need highlighting
-        if (id === 'hero-title' || id === 'roles-title' || id === 'aiq-title') {
+        if (id === 'hero-title' || id === 'llm-beer-game-title' || id === 'roles-title' || id === 'aiq-title') {
             // Don't overwrite titles with highlight spans - they're already in HTML
             return;
         }
@@ -82,8 +82,8 @@ function updateSection(sectionName, sectionData) {
     if (sectionData.body) {
         const element = document.getElementById(`${sectionName}-body`);
         if (element) {
-            // Use innerHTML for beer-game-info to support links
-            if (sectionName === 'beer-game-info') {
+            // Use innerHTML for sections that need HTML formatting
+            if (sectionName === 'beer-game-info' || sectionName === 'llm-beer-game') {
                 element.innerHTML = sectionData.body;
             } else {
                 element.textContent = sectionData.body;

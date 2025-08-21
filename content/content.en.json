@@ -3,13 +3,17 @@
   "hf_embed_url": "https://huggingface.co/spaces/InfoTheoryLab/LLM-Beer-Distribution-Game-public",
   "slides": {
     "hero": {
-      "title": "The Beer Game",
+      "title": "The LLM-Powered Beer Distribution Game Simulator",
       "kicker": "Can AI agents 🤖 manage a classic supply chain exercise?"
     },
     "beer-game-info": {
       "title": "What is the Beer Game?",
-      "body": "The <span class=\"highlight-text\">Beer Distribution Game</span> was developed at MIT in the 1960s and has become a cornerstone of MBA and executive education worldwide. This supply chain simulation challenges players to minimize total costs while managing inventory and avoiding stockouts across four interconnected roles. The game demonstrates how information delays and limited visibility create the famous \"Bullwhip Effect\" - where small changes in customer demand amplify into wild swings upstream. <a href=\"https://web.mit.edu/jsterman/www/SDG/T-00-02.pdf\" target=\"_blank\">Learn about its origins at MIT</a>.",
+      "body": "The <span class=\"highlight-text\">Beer Distribution Game</span> was developed at MIT in the 1960s and has become a cornerstone of MBA and executive education worldwide. This supply chain simulation challenges players to minimize total costs while managing inventory and avoiding stockouts across four interconnected roles. The game demonstrates how information delays and limited visibility create the famous \"Bullwhip Effect\" - where small changes in customer demand amplify into wild swings upstream.",
       "question": "<span class=\"highlight-text\">What happens when AI 🤖 plays the Beer Game?</span>"
+    },
+    "llm-beer-game": {
+      "title": "The LLM-Powered Beer Game",
+      "body": "The LLM-powered Beer Distribution Game shares much with the classic version --- but with a twist: instead of human players, this game is played among Large Language Models (LLMs) as autonomous decision makers. Each LLM (currently powered by GPT-4o-mini) controls one component of the supply chain --- retailer, wholesaler, distributor, or factory. Identical to the setup of the traditional Beer Game, each role manages the inventory at that facility, responds to downstream orders, and decides how many units to order upstream (or produce, in the case of the factory) to minimize costs.<br><br>This is the first online simulator to experiment with LLM deployment in supply chain management. It offers features that enable you to explore a variety of simple and advanced supply chain management concepts. Most importantly, you will witness with immediate feedback the outcome of LLMs' decision-making across a variety of supply chain scenarios you control.<br><br>Since you are here, you have everything you need to operate the game. No additional setup is required."
     },
     "roles": {
       "title": "The Four Roles",
