@@ -44,7 +44,7 @@ function populateContent(data) {
     }
     
     // Update other sections  
-    const sections = ['beer-game-info', 'llm-beer-game', 'roles', 'week', 'aiq', 'vars', 'try', 'credits'];
+    const sections = ['beer-game-info', 'llm-beer-game', 'roles', 'week', 'aiq', 'try', 'credits'];
     sections.forEach(section => {
         if (data.slides?.[section]) {
             updateSection(section, data.slides[section]);
@@ -110,9 +110,6 @@ function updateSection(sectionName, sectionData) {
         case 'aiq':
             updateBullets('aiq-bullets', sectionData.bullets);
             break;
-        case 'vars':
-            updateVariables(sectionData.items);
-            break;
         case 'try':
             updateElement('try-cta', sectionData.cta);
             break;
@@ -150,15 +147,6 @@ function updateBullets(containerId, bullets) {
     const container = document.getElementById(containerId);
     if (container) {
         container.innerHTML = bullets.map(bullet => `<li>${bullet}</li>`).join('');
-    }
-}
-
-function updateVariables(variables) {
-    if (!variables) return;
-    
-    const container = document.getElementById('vars-list');
-    if (container) {
-        container.innerHTML = variables.map(variable => `<li>${variable}</li>`).join('');
     }
 }
 
