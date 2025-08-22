@@ -19,19 +19,19 @@
                 <div class="authors-section">
                     <div class="author">
                         <a href="https://carol-long.github.io/" target="_blank" rel="noopener noreferrer">Carol Long</a>
-                        <span class="affiliation">(Harvard)</span>
+                        <span class="affiliation">Harvard</span>
                     </div>
                     <div class="author">
                         <a href="https://cee.mit.edu/people_individual/david-simchi-levi/" target="_blank" rel="noopener noreferrer">David Simchi-Levi</a>
-                        <span class="affiliation">(MIT)</span>
+                        <span class="affiliation">MIT</span>
                     </div>
                     <div class="author">
                         <a href="https://andrecalmon.com/" target="_blank" rel="noopener noreferrer">Andre Calmon</a>
-                        <span class="affiliation">(Georgia Tech)</span>
+                        <span class="affiliation">Georgia Tech</span>
                     </div>
                     <div class="author">
                         <a href="https://people.seas.harvard.edu/~flavio/" target="_blank" rel="noopener noreferrer">Flavio Calmon</a>
-                        <span class="affiliation">(Harvard)</span>
+                        <span class="affiliation">Harvard</span>
                     </div>
                 </div>
                 <p class="scroll-hint">Keep scrolling to explore<br><span class="desktop-hint">Best experienced on desktop</span></p>
@@ -41,68 +41,88 @@
             </div>
         </section>
 
-        <!-- Section 2: What is the Beer Game? -->
-        <section id="beer-game-info" class="section">
+        <!-- Section 2: What is the Beer Game? - Introduction -->
+        <section id="beer-game-intro" class="section">
             <div class="reveal">
-                <h2 id="beer-game-info-title">What is the <span class="highlight-text">Beer Game</span>?</h2>
+                <h2 id="beer-game-intro-title">What is the <span class="highlight-text">Beer Game</span>?</h2>
                 <div class="beer-game-content">
                     <div class="beer-game-text">
-                        <p id="beer-game-info-body">Content loaded from JSON</p>
+                        <p>The <span class="highlight-text">Beer Distribution Game</span> was developed at MIT in the 1960s and has been played by MBA and Executive students for over 60 years. The goal is simple: minimize supply chain costs. Four players take different roles (retailer, wholesaler, distributor, and factory) in a beer distribution network.</p>
                     </div>
                     <div class="beer-game-image">
                         <img src="assets/images/BeerGameBoard.jpg" alt="Original Beer Game Board from MIT" class="board-image">
                         <p class="image-caption">The original Beer Game board used in MBA classrooms</p>
                     </div>
                 </div>
-                <p id="beer-game-info-question" class="section-question" style="margin-top: 2rem; font-size: 1.25rem; font-weight: 600;">What happens when AI 🤖 plays the Beer Game?</p>
+                
+                <!-- Supply Chain Overview Diagram -->
+                <div class="supply-chain-overview">
+                    <div class="supply-chain-simple-flow">
+                        <!-- Customer -->
+                        <div class="simple-stage-node customer">
+                            <i class="fas fa-users simple-stage-icon"></i>
+                            <p class="stage-label customer-label">Customer</p>
+                        </div>
+                        
+                        <!-- Arrow -->
+                        <div class="simple-arrow">
+                            <div class="arrow-visual">←</div>
+                        </div>
+                        
+                        <!-- Retailer -->
+                        <div class="simple-stage-node retailer">
+                            <i class="fas fa-store simple-stage-icon"></i>
+                            <p class="stage-label retailer-label">Retailer</p>
+                            <p class="player-label">(Player 1)</p>
+                        </div>
+                        
+                        <!-- Arrow -->
+                        <div class="simple-arrow">
+                            <div class="arrow-visual">←</div>
+                        </div>
+                        
+                        <!-- Wholesaler -->
+                        <div class="simple-stage-node wholesaler">
+                            <i class="fas fa-warehouse simple-stage-icon"></i>
+                            <p class="stage-label wholesaler-label">Wholesaler</p>
+                            <p class="player-label">(Player 2)</p>
+                        </div>
+                        
+                        <!-- Arrow -->
+                        <div class="simple-arrow">
+                            <div class="arrow-visual">←</div>
+                        </div>
+                        
+                        <!-- Distributor -->
+                        <div class="simple-stage-node distributor">
+                            <i class="fas fa-truck simple-stage-icon"></i>
+                            <p class="stage-label distributor-label">Distributor</p>
+                            <p class="player-label">(Player 3)</p>
+                        </div>
+                        
+                        <!-- Arrow -->
+                        <div class="simple-arrow">
+                            <div class="arrow-visual">←</div>
+                        </div>
+                        
+                        <!-- Factory -->
+                        <div class="simple-stage-node factory">
+                            <i class="fas fa-industry simple-stage-icon"></i>
+                            <p class="stage-label factory-label">Factory</p>
+                            <p class="player-label">(Player 4)</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Section 3: The LLM-Powered Beer Game -->
-        <section id="llm-beer-game" class="section">
-            <div class="reveal">
-                <h2 id="llm-beer-game-title">The LLM-Powered <span class="highlight-text">Beer Game</span></h2>
-                <p id="llm-beer-game-body">Content loaded from JSON</p>
-            </div>
-        </section>
-
-        <!-- Section 4: The Four Roles -->
-        <section id="roles" class="section">
-            <div class="reveal">
-                <h2 id="roles-title">The <span class="highlight-text">Four Roles</span></h2>
-            </div>
-            <div class="roles-grid reveal">
-                <div class="role-card" data-role="retailer">
-                    <i class="fas fa-store role-icon"></i>
-                    <h3 class="role-name">Retailer</h3>
-                    <p class="role-description">Content loaded from JSON</p>
-                </div>
-                <div class="role-card" data-role="wholesaler">
-                    <i class="fas fa-warehouse role-icon"></i>
-                    <h3 class="role-name">Wholesaler</h3>
-                    <p class="role-description">Content loaded from JSON</p>
-                </div>
-                <div class="role-card" data-role="distributor">
-                    <i class="fas fa-truck role-icon"></i>
-                    <h3 class="role-name">Distributor</h3>
-                    <p class="role-description">Content loaded from JSON</p>
-                </div>
-                <div class="role-card" data-role="factory">
-                    <i class="fas fa-industry role-icon"></i>
-                    <h3 class="role-name">Factory</h3>
-                    <p class="role-description">Content loaded from JSON</p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Section 5: Beer Game Dynamics -->
-        <div id="beer-game-dynamics-section">
+        <!-- Section 3: Beer Game Mechanics with Dynamics -->
+        <div id="beer-game-mechanics-section">
             <div class="dynamics-sticky-wrapper">
-                <!-- Title -->
+                <!-- Title and Introduction -->
                 <div class="dynamics-header">
-                    <h2>Beer Game Dynamics</h2>
-                    <p>Follow the flow of orders and beer through the supply chain</p>
+                    <h2>How the <span class="highlight-text">Beer Game</span> Works</h2>
+                    <p>The game works in rounds, each representing one week. Each player makes just ONE decision per round: how much to order from their supplier (or how much to produce as the factory).</p>
                     <div class="flow-direction-indicator">
                         <span class="beer-direction">🍺 Beer flows downstream ←</span>
                         <span class="divider">|</span>
@@ -110,15 +130,16 @@
                     </div>
                 </div>
                 
-                <!-- Main Content Area with Side-by-Side Layout -->
+                <!-- Main Content Area with Vertical Layout -->
                 <div class="dynamics-content">
-                    <!-- Left: Supply Chain Visualization -->
+                    <!-- Center: Supply Chain Visualization -->
                     <div class="supply-chain-container">
                         <!-- Supply Chain Flow -->
                         <div class="supply-chain-flow">
                             <!-- Customer -->
                             <div class="stage-node customer" id="customer-node">
                                 <i class="fas fa-users"></i>
+                                <p class="stage-label customer-label">Customer</p>
                             </div>
                             
                             <!-- Arrow Flow -->
@@ -132,6 +153,22 @@
                             <!-- Retailer -->
                             <div class="stage-node retailer" id="retailer-node">
                                 <i class="fas fa-store"></i>
+                                <p class="stage-label retailer-label">Retailer</p>
+                                <div class="inventory-grid">
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji step3-remove">🍺</span>
+                                    <span class="beer-emoji arriving-beer step3-remove">🍺</span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="order-container">
+                                    <div class="order-box" data-role="retailer">Order:<br><span class="order-number">2</span><span class="order-question step4-show">?</span></div>
+                                    <span class="status-icon success-icon">✓</span>
+                                </div>
                             </div>
                             
                             <!-- Arrow Flow -->
@@ -146,6 +183,22 @@
                             <!-- Wholesaler -->
                             <div class="stage-node wholesaler" id="wholesaler-node">
                                 <i class="fas fa-warehouse"></i>
+                                <p class="stage-label wholesaler-label">Wholesaler</p>
+                                <div class="inventory-grid">
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji step3-remove">🍺</span>
+                                    <span class="beer-emoji step3-remove">🍺</span>
+                                    <span class="beer-emoji step3-remove">🍺</span>
+                                    <span class="beer-emoji arriving-beer step3-remove">🍺</span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="order-container">
+                                    <div class="order-box" data-role="wholesaler">Order:<br><span class="order-number">4</span><span class="order-question step4-show">?</span></div>
+                                    <span class="status-icon success-icon">✓</span>
+                                </div>
                             </div>
                             
                             <!-- Arrow Flow -->
@@ -160,6 +213,27 @@
                             <!-- Distributor -->
                             <div class="stage-node distributor" id="distributor-node">
                                 <i class="fas fa-truck"></i>
+                                <p class="stage-label distributor-label">Distributor</p>
+                                <div class="backlog-indicator-container">
+                                    <div class="inventory-grid">
+                                        <span class="beer-emoji step3-remove">🍺</span>
+                                        <span class="beer-emoji step3-remove">🍺</span>
+                                        <span class="beer-emoji step3-remove">🍺</span>
+                                        <span class="beer-emoji arriving-beer step3-remove">🍺</span>
+                                        <span class="beer-emoji backlog-beer step3-show">🍺</span>
+                                        <span class="beer-emoji backlog-beer step3-show">🍺</span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="backlog-indicator step3-show">
+                                        <div class="backlog-text">Backlog</div>
+                                    </div>
+                                </div>
+                                <div class="order-container">
+                                    <div class="order-box" data-role="distributor">Order:<br><span class="order-number">6</span><span class="order-question step4-show">?</span></div>
+                                    <span class="status-icon fail-icon">✗</span>
+                                </div>
                             </div>
                             
                             <!-- Arrow Flow -->
@@ -174,22 +248,56 @@
                             <!-- Factory -->
                             <div class="stage-node factory" id="factory-node">
                                 <i class="fas fa-industry"></i>
+                                <p class="stage-label factory-label">Factory</p>
+                                <div class="inventory-grid">
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji">🍺</span>
+                                    <span class="beer-emoji arriving-beer step3-remove">🍺</span>
+                                    <span></span>
+                                </div>
+                                <div class="order-container">
+                                    <div class="order-box" data-role="factory">Order:<br><span class="order-number">1</span><span class="order-question step4-show">?</span></div>
+                                    <span class="status-icon success-icon">✓</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Right: Explanation Panel -->
-                    <div class="explanation-panel" id="dynamics-explanation-panel">
-                        <div class="explanation-content" id="dynamics-explanation-content">
-                            <h3 id="explanation-title"></h3>
-                            <p id="explanation-text"></p>
-                        </div>
+                </div>
+                
+                <!-- Bottom: Fixed Explanation Panel -->
+                <div class="explanation-panel-bottom" id="dynamics-explanation-panel">
+                    <div class="explanation-content-bottom" id="dynamics-explanation-content">
+                        <h3 id="explanation-title"></h3>
+                        <p id="explanation-text"></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Section 6: Progressive Bullwhip Effect -->
+        <!-- Section 4: The Bullwhip Effect -->
+        <section id="bullwhip-effect" class="section">
+            <div class="reveal">
+                <h2 id="bullwhip-effect-title">The <span class="highlight-text">Bullwhip Effect</span></h2>
+                <div class="beer-game-content">
+                    <div class="beer-game-text">
+                        <p>Despite this simple decision, two things make the game challenging:</p>
+                        <br>
+                        <p><strong>1. Limited Information:</strong> If you're not the retailer, you don't see what customers actually want.</p>
+                        <p><strong>2. Delivery Delays:</strong> Orders take time to arrive from suppliers.</p>
+                        <br>
+                        <p>Players must track both their on-hand inventory and their pipeline inventory (what they ordered but hasn't arrived yet). These complications create the famous <span class="highlight-text">Bullwhip Effect</span> - small changes in customer demand create wild swings in orders upstream in the supply chain.</p>
+                    </div>
+                </div>
+                <p id="beer-game-info-question" class="section-question" style="margin-top: 2rem; font-size: 1.25rem; font-weight: 600;">What happens when AI 🤖 plays the Beer Game?</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Progressive Bullwhip Effect -->
         <div id="bullwhip-progressive-section">
             <div class="bullwhip-sticky-wrapper">
                 <!-- Dynamic explanations will be injected here by JS -->
@@ -209,52 +317,71 @@
             </div>
         </div>
 
-        <!-- Section 7: Q: What happens when AI plays the Beer Game? -->
-        <section id="aiq" class="section">
-            <div class="reveal">
-                <h2 id="aiq-title">What happens when AI plays the <span class="highlight-text">Beer Game</span>?</h2>
-            </div>
-            
-            <!-- AI Supply Chain Diagram -->
-            <div class="ai-supply-chain reveal">
-                <div class="ai-chain-node">
-                    <i class="fas fa-users supply-chain-icon"></i>
-                    <p class="ai-label">Customer</p>
-                </div>
-                <i class="fas fa-arrow-right"></i>
-                <div class="ai-chain-node">
-                    <i class="fas fa-store supply-chain-icon"></i>
-                    <i class="fas fa-robot robot-icon" data-role="retailer"></i>
-                    <p class="ai-label">Retailer</p>
-                </div>
-                <i class="fas fa-arrow-right"></i>
-                <div class="ai-chain-node">
-                    <i class="fas fa-warehouse supply-chain-icon"></i>
-                    <i class="fas fa-robot robot-icon" data-role="wholesaler"></i>
-                    <p class="ai-label">Wholesaler</p>
-                </div>
-                <i class="fas fa-arrow-right"></i>
-                <div class="ai-chain-node">
-                    <i class="fas fa-truck supply-chain-icon"></i>
-                    <i class="fas fa-robot robot-icon" data-role="distributor"></i>
-                    <p class="ai-label">Distributor</p>
-                </div>
-                <i class="fas fa-arrow-right"></i>
-                <div class="ai-chain-node">
-                    <i class="fas fa-industry supply-chain-icon"></i>
-                    <i class="fas fa-robot robot-icon" data-role="factory"></i>
-                    <p class="ai-label">Factory</p>
-                </div>
-            </div>
-            
-            <div class="container">
-                <ul id="aiq-bullets">
-                    <!-- Bullets will be populated from JSON -->
-                </ul>
-            </div>
-        </section>
 
-        <!-- Section 8: Key Variables -->
+
+
+        <!-- Section 6: What happens when AI plays the Beer Game? -->
+        <div id="aiq-section">
+            <div class="aiq-sticky-wrapper">
+                <!-- Fixed Title -->
+                <div class="aiq-header">
+                    <h2 id="aiq-title">What happens when AI plays the <span class="highlight-text">Beer Game</span>?</h2>
+                </div>
+                
+                <!-- Fixed AI Supply Chain Diagram -->
+                <div class="ai-supply-chain">
+                    <div class="ai-chain-node">
+                        <i class="fas fa-users supply-chain-icon"></i>
+                        <p class="ai-label">Customer</p>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                    <div class="ai-chain-node">
+                        <i class="fas fa-store supply-chain-icon"></i>
+                        <i class="fas fa-robot robot-icon" data-role="retailer"></i>
+                        <p class="ai-label">Retailer</p>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                    <div class="ai-chain-node">
+                        <i class="fas fa-warehouse supply-chain-icon"></i>
+                        <i class="fas fa-robot robot-icon" data-role="wholesaler"></i>
+                        <p class="ai-label">Wholesaler</p>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                    <div class="ai-chain-node">
+                        <i class="fas fa-truck supply-chain-icon"></i>
+                        <i class="fas fa-robot robot-icon" data-role="distributor"></i>
+                        <p class="ai-label">Distributor</p>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                    <div class="ai-chain-node">
+                        <i class="fas fa-industry supply-chain-icon"></i>
+                        <i class="fas fa-robot robot-icon" data-role="factory"></i>
+                        <p class="ai-label">Factory</p>
+                    </div>
+                </div>
+                
+                <!-- Scrollable Content Area -->
+                <div class="aiq-content-area">
+                    <!-- Content 1: Descriptive Paragraph -->
+                    <div class="aiq-content aiq-description active" id="aiq-description">
+                        <div class="container">
+                            <p>The LLM-powered Beer Distribution Game shares much with the classic version — but with a twist: instead of human players, this game is played among Large Language Models (LLMs) as autonomous decision makers. Each LLM (currently powered by GPT-4o-mini) controls one component of the supply chain — retailer, wholesaler, distributor, or factory. Identical to the setup of the traditional Beer Game, each role manages the inventory at that facility, responds to downstream orders, and decides how many units to order upstream (or produce, in the case of the factory) to minimize costs.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Content 2: Bullet Points -->
+                    <div class="aiq-content aiq-bullets" id="aiq-bullets-content">
+                        <div class="container">
+                            <ul id="aiq-bullets">
+                                <!-- Bullets will be populated from JSON -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: Key Variables -->
         <section id="vars" class="section">
             <div class="reveal">
                 <h2 id="vars-title">Key Variables</h2>
@@ -265,7 +392,7 @@
             </div>
         </section>
 
-        <!-- Section 9: Try It -->
+        <!-- Section 8: Try It -->
         <section id="try" class="section">
             <div class="reveal">
                 <h2 id="try-title">Try the Simulation</h2>
@@ -277,7 +404,7 @@
             </div>
         </section>
 
-        <!-- Section 10: Credits -->
+        <!-- Section 9: Credits -->
         <section id="credits" class="section">
             <div class="reveal">
                 <h2 id="credits-title">Credits</h2>

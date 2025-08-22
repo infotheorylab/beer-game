@@ -10,8 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize interactive supply chain explainer
     initBeerGameDynamics();
     
+    // Initialize beer game mechanics with steps
+    initBeerGameMechanics();
+    
     // Initialize progressive bullwhip chart
     initProgressiveBullwhipChart();
+    
+    // Initialize AIQ content switching
+    initAIQContentSwitching();
     
     // Initialize Hugging Face embed
     initHuggingFaceEmbed();
@@ -44,7 +50,7 @@ function populateContent(data) {
     }
     
     // Update other sections  
-    const sections = ['beer-game-info', 'llm-beer-game', 'roles', 'week', 'aiq', 'vars', 'try', 'credits'];
+    const sections = ['beer-game-info', 'week', 'aiq', 'vars', 'try', 'credits'];
     sections.forEach(section => {
         if (data.slides?.[section]) {
             updateSection(section, data.slides[section]);
@@ -64,7 +70,7 @@ function updateElement(id, content) {
     const element = document.getElementById(id);
     if (element && content) {
         // Special handling for titles that need highlighting
-        if (id === 'hero-title' || id === 'llm-beer-game-title' || id === 'roles-title' || id === 'aiq-title') {
+        if (id === 'hero-title' || id === 'aiq-title') {
             // Don't overwrite titles with highlight spans - they're already in HTML
             return;
         }
@@ -83,7 +89,7 @@ function updateSection(sectionName, sectionData) {
         const element = document.getElementById(`${sectionName}-body`);
         if (element) {
             // Use innerHTML for sections that need HTML formatting
-            if (sectionName === 'beer-game-info' || sectionName === 'llm-beer-game') {
+            if (sectionName === 'beer-game-info') {
                 element.innerHTML = sectionData.body;
             } else {
                 element.textContent = sectionData.body;
@@ -101,9 +107,6 @@ function updateSection(sectionName, sectionData) {
     
     // Handle special cases
     switch (sectionName) {
-        case 'roles':
-            updateRoles(sectionData.items);
-            break;
         case 'week':
             updateWeekSteps(sectionData.steps);
             break;
@@ -117,20 +120,6 @@ function updateSection(sectionName, sectionData) {
             updateElement('try-cta', sectionData.cta);
             break;
     }
-}
-
-function updateRoles(roleItems) {
-    if (!roleItems) return;
-    
-    const roleCards = document.querySelectorAll('.role-card');
-    roleItems.forEach((item, index) => {
-        if (roleCards[index]) {
-            const nameEl = roleCards[index].querySelector('.role-name');
-            const descEl = roleCards[index].querySelector('.role-description');
-            if (nameEl) nameEl.textContent = item.t;
-            if (descEl) descEl.innerHTML = item.b;
-        }
-    });
 }
 
 function updateWeekSteps(steps) {
@@ -299,6 +288,312 @@ function initBeerGameDynamics() {
     });
     
     // Initialize with first explanation
+    updateVisualization(0);
+}
+
+// Beer Game Mechanics - Step-by-step explanation for Section 3
+function initBeerGameMechanics() {
+    const scrollContainer = document.querySelector('main');
+    const mechanicsSection = document.getElementById('beer-game-mechanics-section');
+    const explanationPanel = document.getElementById('dynamics-explanation-panel');
+    const explanationContent = document.getElementById('dynamics-explanation-content');
+    const explanationTitle = document.getElementById('explanation-title');
+    const explanationText = document.getElementById('explanation-text');
+    
+    if (!scrollContainer || !mechanicsSection) return;
+    
+    // Game mechanics explanations for "How the Beer Game Works"
+    const explanations = [
+        {
+            title: "The Beer Game Supply Chain",
+            text: "In the Beer Game, four players manage the beer supply chain: Factory, Distributor, Wholesaler, and Retailer. Each week, they follow four steps.",
+            visualState: { retailer: 'normal', wholesaler: 'normal', distributor: 'normal', factory: 'normal' }
+        },
+        {
+            title: "Step 1: Check Deliveries",
+            text: "Each player receives their incoming shipments from upstream. These are orders placed two weeks ago (except retailers who can fulfill customers immediately).",
+            visualState: { retailer: 'highlight', wholesaler: 'highlight', distributor: 'highlight', factory: 'highlight' }
+        },
+        {
+            title: "Step 2: Check Orders",
+            text: "Players see what their downstream partner wants. Only the retailer sees actual customer demand - everyone else sees their partner's orders.",
+            visualState: { customer: 'highlight', retailer: 'normal' }
+        },
+        {
+            title: "Step 3: Deliver Beer",
+            text: "Ship beer to fulfill orders. If you don't have enough inventory, you create a backlog that must be filled when stock arrives.",
+            visualState: { retailer: 'normal', wholesaler: 'normal', distributor: 'normal' }
+        },
+        {
+            title: "Step 4: Make Order Decision",
+            text: "The critical decision: How much to order from your supplier? This is where the bullwhip effect begins - small demand changes create big swings.",
+            visualState: { retailer: 'backlog', wholesaler: 'backlog', distributor: 'backlog', factory: 'backlog' }
+        }
+    ];
+    
+    let currentStep = 0;
+    
+    // Update visual states and explanation panel
+    function updateVisualization(step) {
+        if (step < 0 || step >= explanations.length) return;
+        
+        const explanation = explanations[step];
+        
+        // Update explanation panel text
+        if (explanationContent && explanationTitle && explanationText) {
+            explanationTitle.textContent = explanation.title;
+            explanationText.textContent = explanation.text;
+            setTimeout(() => explanationContent.classList.add('visible'), 50);
+        }
+        
+        // Reset all nodes to normal
+        document.querySelectorAll('.stage-node').forEach(node => {
+            node.classList.remove('highlight', 'excess', 'normal', 'backlog');
+        });
+        
+        // Control beer flow animation - only on Step 1 (Check Deliveries)
+        const beerIcons = document.querySelectorAll('#beer-game-mechanics-section .beer-icon');
+        if (step === 1) {
+            // Add animation for Step 1: Check Deliveries
+            beerIcons.forEach(icon => icon.classList.add('animate'));
+        } else {
+            // Remove animation for all other steps
+            beerIcons.forEach(icon => icon.classList.remove('animate'));
+        }
+        
+        // Control arriving beer visibility - highlight in Step 1, permanent afterwards
+        const arrivingBeers = document.querySelectorAll('#beer-game-mechanics-section .arriving-beer');
+        if (step === 1) {
+            // Show and highlight arriving beer for Step 1: Check Deliveries
+            arrivingBeers.forEach(beer => {
+                beer.classList.add('highlight');
+                beer.classList.remove('permanent');
+                // Ensure arriving beer is visible even if it has step3-remove class
+                beer.classList.remove('removing');
+            });
+        } else if (step > 1 && step < 3) {
+            // Make arriving beer permanent (visible but not highlighted) for step 2
+            arrivingBeers.forEach(beer => {
+                beer.classList.remove('highlight');
+                beer.classList.add('permanent');
+                beer.classList.remove('removing');
+            });
+        } else if (step >= 3) {
+            // Step 3 and beyond: arriving beers with step3-remove will be handled by beer removal logic
+            arrivingBeers.forEach(beer => {
+                beer.classList.remove('highlight');
+                if (!beer.classList.contains('step3-remove')) {
+                    beer.classList.add('permanent');
+                }
+            });
+        } else {
+            // Hide arriving beer for step 0
+            arrivingBeers.forEach(beer => {
+                beer.classList.remove('highlight', 'permanent', 'removing');
+            });
+        }
+        
+        // Control arrow direction - reverse in Step 2 (Check Orders)
+        const arrowVisuals = document.querySelectorAll('#beer-game-mechanics-section .arrow-visual');
+        if (step === 2) {
+            // Reverse arrows for Step 2: Check Orders (orders flow upstream →)
+            arrowVisuals.forEach(arrow => arrow.classList.add('reverse'));
+        } else {
+            // Normal arrow direction for all other steps (beer flows downstream ←)
+            arrowVisuals.forEach(arrow => arrow.classList.remove('reverse'));
+        }
+        
+        // Control flow direction text highlighting
+        const beerDirection = document.querySelector('#beer-game-mechanics-section .beer-direction');
+        const orderDirection = document.querySelector('#beer-game-mechanics-section .order-direction');
+        
+        if (step === 2) {
+            // Step 2: Highlight orders flow, dim beer flow
+            if (beerDirection) {
+                beerDirection.classList.remove('highlighted');
+                beerDirection.classList.add('dimmed');
+            }
+            if (orderDirection) {
+                orderDirection.classList.remove('dimmed');
+                orderDirection.classList.add('highlighted');
+            }
+        } else {
+            // All other steps: Highlight beer flow, dim orders flow
+            if (beerDirection) {
+                beerDirection.classList.remove('dimmed');
+                beerDirection.classList.add('highlighted');
+            }
+            if (orderDirection) {
+                orderDirection.classList.remove('highlighted');
+                orderDirection.classList.add('dimmed');
+            }
+        }
+        
+        // Control order box visibility - show in Step 2 and remain in Steps 3-4
+        const orderBoxes = document.querySelectorAll('#beer-game-mechanics-section .order-box');
+        if (step >= 2) {
+            // Show order boxes from Step 2 onwards (Check Orders, Deliver Beer, Make Order Decision)
+            orderBoxes.forEach(box => box.classList.add('order-show'));
+        } else {
+            // Hide order boxes in Steps 0-1 (Supply Chain overview, Check Deliveries)
+            orderBoxes.forEach(box => box.classList.remove('order-show'));
+        }
+        
+        // Control status icons in order boxes - show in Step 3 (Deliver Beer)
+        const statusIcons = document.querySelectorAll('#beer-game-mechanics-section .status-icon');
+        if (step === 3) {
+            // Show status icons in Step 3: Deliver Beer
+            statusIcons.forEach(icon => icon.classList.add('status-show'));
+        } else {
+            // Hide status icons in all other steps
+            statusIcons.forEach(icon => icon.classList.remove('status-show'));
+        }
+        
+        // Control order numbers vs question marks - show ? only in Step 4 (Make Order Decision)
+        const orderNumbers = document.querySelectorAll('#beer-game-mechanics-section .order-number');
+        const orderQuestions = document.querySelectorAll('#beer-game-mechanics-section .order-question');
+        if (step === 4) {
+            // Step 4: Show question marks, hide numbers
+            orderNumbers.forEach(num => num.classList.add('step4-hide'));
+            orderQuestions.forEach(q => q.classList.add('show-step4'));
+        } else {
+            // All other steps: Show numbers, hide question marks
+            orderNumbers.forEach(num => num.classList.remove('step4-hide'));
+            orderQuestions.forEach(q => q.classList.remove('show-step4'));
+        }
+        
+        // Control beer inventory changes - Step 3 (Deliver Beer)
+        const step3RemoveBeers = document.querySelectorAll('#beer-game-mechanics-section .step3-remove');
+        const step3ShowElements = document.querySelectorAll('#beer-game-mechanics-section .step3-show');
+        
+        // Control distributor inventory grid background for backlog
+        const distributorGrid = document.querySelector('#distributor-node .inventory-grid');
+        
+        if (step >= 3) {
+            // Step 3 and beyond: Show backlog elements for distributor
+            step3ShowElements.forEach(element => element.classList.add('show-step3'));
+            
+            // Add red background to distributor's inventory grid
+            if (distributorGrid) {
+                distributorGrid.classList.add('backlog-background');
+            }
+            
+            if (step === 3) {
+                // Step 3 only: Remove beers with animation
+                setTimeout(() => {
+                    step3RemoveBeers.forEach(beer => beer.classList.add('removing'));
+                }, 500); // Delay for visual effect
+            }
+        } else {
+            // Steps 0-2: Reset beer visibility and hide backlog elements
+            step3RemoveBeers.forEach(beer => beer.classList.remove('removing'));
+            step3ShowElements.forEach(element => element.classList.remove('show-step3'));
+            
+            // Remove red background from distributor's inventory grid
+            if (distributorGrid) {
+                distributorGrid.classList.remove('backlog-background');
+            }
+        }
+        
+        // Apply visual states
+        if (explanation.visualState) {
+            Object.entries(explanation.visualState).forEach(([stage, state]) => {
+                const node = document.getElementById(`${stage}-node`);
+                if (node) {
+                    node.classList.add(state);
+                }
+            });
+        }
+    }
+    
+    // Hide explanation when not in section
+    function hideExplanation() {
+        if (explanationContent) {
+            explanationContent.classList.remove('visible');
+        }
+        if (explanationPanel) {
+            explanationPanel.style.display = 'none';
+        }
+    }
+    
+    // Show explanation panel
+    function showExplanation() {
+        if (explanationPanel) {
+            explanationPanel.style.display = 'flex';
+        }
+    }
+
+    // Handle scroll events
+    scrollContainer.addEventListener('scroll', () => {
+        const scrollTop = scrollContainer.scrollTop;
+        const sectionTop = mechanicsSection.offsetTop;
+        const sectionHeight = mechanicsSection.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        
+        // Check if we're in the mechanics section
+        if (scrollTop >= sectionTop - viewportHeight / 2 && 
+            scrollTop < sectionTop + sectionHeight - viewportHeight / 2) {
+            
+            // Show the explanation panel when entering the section
+            showExplanation();
+            
+            // Calculate which step we're on
+            const scrollProgress = (scrollTop - sectionTop) / (sectionHeight - viewportHeight);
+            const newStep = Math.min(
+                explanations.length - 1,
+                Math.max(0, Math.floor(scrollProgress * explanations.length))
+            );
+            
+            if (newStep !== currentStep) {
+                currentStep = newStep;
+                updateVisualization(currentStep);
+            }
+        } else {
+            // Hide explanation when not in section
+            hideExplanation();
+        }
+    });
+    
+    // Initialize panel as hidden and ensure no beer animations
+    hideExplanation();
+    
+    // Ensure beer icons start without animation
+    const beerIcons = document.querySelectorAll('#beer-game-mechanics-section .beer-icon');
+    beerIcons.forEach(icon => icon.classList.remove('animate'));
+    
+    // Ensure arriving beer starts hidden
+    const arrivingBeers = document.querySelectorAll('#beer-game-mechanics-section .arriving-beer');
+    arrivingBeers.forEach(beer => beer.classList.remove('highlight', 'permanent', 'removing'));
+    
+    // Ensure order boxes start hidden
+    const orderBoxes = document.querySelectorAll('#beer-game-mechanics-section .order-box');
+    orderBoxes.forEach(box => box.classList.remove('order-show'));
+    
+    // Ensure status icons start hidden
+    const statusIcons = document.querySelectorAll('#beer-game-mechanics-section .status-icon');
+    statusIcons.forEach(icon => icon.classList.remove('status-show'));
+    
+    // Ensure step3 elements start hidden
+    const step3ShowElements = document.querySelectorAll('#beer-game-mechanics-section .step3-show');
+    step3ShowElements.forEach(element => element.classList.remove('show-step3'));
+    
+    // Ensure step3 remove beers start without removing animation
+    const step3RemoveBeers = document.querySelectorAll('#beer-game-mechanics-section .step3-remove');
+    step3RemoveBeers.forEach(beer => beer.classList.remove('removing'));
+    
+    // Ensure distributor grid starts without backlog background
+    const distributorGrid = document.querySelector('#distributor-node .inventory-grid');
+    if (distributorGrid) {
+        distributorGrid.classList.remove('backlog-background');
+    }
+    
+    // Ensure order question marks start hidden and numbers are visible
+    const orderNumbers = document.querySelectorAll('#beer-game-mechanics-section .order-number');
+    const orderQuestions = document.querySelectorAll('#beer-game-mechanics-section .order-question');
+    orderNumbers.forEach(num => num.classList.remove('step4-hide'));
+    orderQuestions.forEach(q => q.classList.remove('show-step4'));
+    
+    // Initialize with Step 0 state to ensure arriving beer is hidden initially
     updateVisualization(0);
 }
 
@@ -703,6 +998,47 @@ function updateBullwhipExplanation(step, explanation) {
 function initHuggingFaceEmbed() {
     // This will be populated from the JSON content
     // If no URL is provided, the iframe will show empty
+}
+
+// AIQ Section Content Switching
+function initAIQContentSwitching() {
+    const scrollContainer = document.querySelector('main');
+    const aiqSection = document.getElementById('aiq-section');
+    const descriptionContent = document.getElementById('aiq-description');
+    const bulletsContent = document.getElementById('aiq-bullets-content');
+    
+    if (!scrollContainer || !aiqSection) return;
+    
+    let currentContent = 'description';
+    
+    function updateAIQContent() {
+        const rect = aiqSection.getBoundingClientRect();
+        const sectionHeight = rect.height;
+        const viewportHeight = window.innerHeight;
+        
+        // Calculate scroll progress within the section
+        const scrollProgress = Math.max(0, Math.min(1, -rect.top / (sectionHeight - viewportHeight)));
+        
+        // Switch content when user scrolls halfway through the section
+        const shouldShowBullets = scrollProgress > 0.5;
+        
+        if (shouldShowBullets && currentContent === 'description') {
+            currentContent = 'bullets';
+            descriptionContent.classList.remove('active');
+            bulletsContent.classList.add('active');
+        } else if (!shouldShowBullets && currentContent === 'bullets') {
+            currentContent = 'description';
+            bulletsContent.classList.remove('active');
+            descriptionContent.classList.add('active');
+        }
+    }
+    
+    // Listen for scroll events
+    scrollContainer.addEventListener('scroll', updateAIQContent);
+    window.addEventListener('resize', updateAIQContent);
+    
+    // Initial state
+    updateAIQContent();
 }
 
 // Utility function for smooth scrolling (optional enhancement)
