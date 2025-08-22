@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollReveal();
     
     // Initialize interactive supply chain explainer
-    initSupplyChainExplainer();
+    initBeerGameDynamics();
     
     // Initialize progressive bullwhip chart
     initProgressiveBullwhipChart();
@@ -128,7 +128,7 @@ function updateRoles(roleItems) {
             const nameEl = roleCards[index].querySelector('.role-name');
             const descEl = roleCards[index].querySelector('.role-description');
             if (nameEl) nameEl.textContent = item.t;
-            if (descEl) descEl.textContent = item.b;
+            if (descEl) descEl.innerHTML = item.b;
         }
     });
 }
@@ -183,133 +183,123 @@ function initScrollReveal() {
     });
 }
 
-// Interactive Supply Chain Explainer (from draft1.html)
-function initSupplyChainExplainer() {
+// Beer Game Dynamics - Visual with Side Panel
+function initBeerGameDynamics() {
     const scrollContainer = document.querySelector('main');
-    const explainerSection = document.getElementById('supply-chain-explainer-section');
-    const explanationContainer = document.getElementById('explanation-container');
-
-    if (!scrollContainer || !explainerSection || !explanationContainer) return;
-
-    const icons = {
-        customer: document.getElementById('chain-customer'),
-        retailer: document.getElementById('chain-retailer'),
-        wholesaler: document.getElementById('chain-wholesaler'),
-        distributor: document.getElementById('chain-distributor'),
-        factory: document.getElementById('chain-factory'),
-    };
-    const arrows = [
-        document.getElementById('arrow-1'),
-        document.getElementById('arrow-2'),
-        document.getElementById('arrow-3'),
-        document.getElementById('arrow-4'),
-    ];
-
-    const explanations = {
-        customer: {
-            title: "The Customer",
-            text: "Their demand is the only real input to the system. They simply want to buy beer. Their demand is surprisingly stable, but their actions kickstart the entire chain.",
-            highlightClass: 'highlight-amber'
+    const dynamicsSection = document.getElementById('beer-game-dynamics-section');
+    const explanationContent = document.getElementById('dynamics-explanation-content');
+    const explanationTitle = document.getElementById('explanation-title');
+    const explanationText = document.getElementById('explanation-text');
+    
+    if (!scrollContainer || !dynamicsSection) return;
+    
+    // Game dynamics explanations following Wikipedia's 4-step process
+    const explanations = [
+        {
+            title: "The Beer Game Supply Chain",
+            text: "In the Beer Game, four players manage the beer supply chain: Factory, Distributor, Wholesaler, and Retailer. Each week, they follow four steps.",
+            visualState: { retailer: 'normal', wholesaler: 'normal', distributor: 'normal', factory: 'normal' }
         },
-        retailer: {
-            title: "The Retailer",
-            text: "Tries to meet customer demand while keeping inventory low. They place orders to the wholesaler based on what they *think* future demand will be.",
-            highlightClass: 'highlight-blue'
+        {
+            title: "Step 1: Check Deliveries",
+            text: "Each player receives their incoming shipments from upstream. These are orders placed two weeks ago (except retailers who can fulfill customers immediately).",
+            visualState: { retailer: 'highlight', wholesaler: 'highlight', distributor: 'highlight', factory: 'highlight' }
         },
-        wholesaler: {
-            title: "The Wholesaler",
-            text: "Fulfills orders from many retailers. They face amplified demand variability and must order from the distributor, adding another layer of forecasting and delay.",
-            highlightClass: 'highlight-purple'
+        {
+            title: "Step 2: Check Orders",
+            text: "Players see what their downstream partner wants. Only the retailer sees actual customer demand - everyone else sees their partner's orders.",
+            visualState: { customer: 'highlight', retailer: 'normal' }
         },
-        distributor: {
-            title: "The Distributor",
-            text: "Bridges factory production and regional markets. Manages bulk inventory distribution to multiple wholesalers, facing amplified demand variability and longer lead times.",
-            highlightClass: 'highlight-amber'
+        {
+            title: "Step 3: Deliver Beer",
+            text: "Ship beer to fulfill orders. If you don't have enough inventory, you create a backlog that must be filled when stock arrives.",
+            visualState: { retailer: 'normal', wholesaler: 'normal', distributor: 'normal' }
         },
-        factory: {
-            title: "The Factory",
-            text: "The start of the production line. They have the longest lead times and see the most distorted demand signal, leading to massive overproduction or shortages.",
-            highlightClass: 'highlight-red'
+        {
+            title: "Step 4: Make Order Decision",
+            text: "The critical decision: How much to order from your supplier? This is where the bullwhip effect begins - small demand changes create big swings.",
+            visualState: { retailer: 'backlog', wholesaler: 'backlog', distributor: 'backlog', factory: 'backlog' }
         },
-        orders: {
-            title: "Goods vs. Information",
-            text: "Goods flow <span class='highlight-text'>downstream</span> from factory to customers, while orders (information) flow <span class='highlight-text'>upstream</span> from customers to factory. Delays in this information flow cause the bullwhip effect.",
+        {
+            title: "The Hidden Challenge",
+            text: "With limited information and delivery delays, players often overreact. A small increase in customer demand causes panic ordering up the chain.",
+            visualState: { customer: 'excess', retailer: 'backlog', wholesaler: 'backlog' }
+        },
+        {
+            title: "The Bullwhip Effect",
+            text: "Small variations in customer demand get amplified at each stage. The factory sees wild swings, alternating between overproduction and shutdowns.",
+            visualState: { factory: 'backlog', distributor: 'excess', wholesaler: 'excess', retailer: 'normal' }
         }
-    };
-
-    let currentStep = null;
-
-    function updateHighlight(step) {
-        if (currentStep === step) return;
-        currentStep = step;
-
-        // Clear previous state
-        Object.values(icons).forEach(icon => {
-            if (icon) icon.classList.remove('highlight', 'highlight-red', 'highlight-purple', 'highlight-blue', 'highlight-amber');
+    ];
+    
+    let currentStep = 0;
+    
+    // Update visual states and explanation panel
+    function updateVisualization(step) {
+        if (step < 0 || step >= explanations.length) return;
+        
+        const explanation = explanations[step];
+        
+        // Update explanation panel text
+        if (explanationContent && explanationTitle && explanationText) {
+            explanationTitle.textContent = explanation.title;
+            explanationText.textContent = explanation.text;
+            setTimeout(() => explanationContent.classList.add('visible'), 50);
+        }
+        
+        // Reset all nodes to normal
+        document.querySelectorAll('.stage-node').forEach(node => {
+            node.classList.remove('highlight', 'excess', 'normal', 'backlog');
         });
-        arrows.forEach(arrow => {
-            if (arrow) {
-                arrow.classList.remove('highlight');
-                arrow.classList.remove('fa-long-arrow-alt-right');
-                arrow.classList.add('fa-long-arrow-alt-left');
-            }
-        });
-        explanationContainer.innerHTML = '';
-
-        if (step && explanations[step]) {
-            const explanation = explanations[step];
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'explanation-content';
-            contentDiv.innerHTML = `
-                <h3 class="explanation-title highlight-text">${explanation.title}</h3>
-                <p class="explanation-text">${explanation.text}</p>
-            `;
-            explanationContainer.appendChild(contentDiv);
-
-            let targetElement = icons[step];
-
-            if (targetElement) {
-                targetElement.classList.add('highlight', explanation.highlightClass);
-                const iconRect = targetElement.getBoundingClientRect();
-                // Position the explanation below the highlighted icon
-                contentDiv.style.left = `${iconRect.left + (iconRect.width / 2) - (contentDiv.offsetWidth / 2)}px`;
-                contentDiv.style.top = `${iconRect.bottom + 15}px`;
-            } else if (step === 'orders') {
-                arrows.forEach(arrow => {
-                    if (arrow) {
-                        arrow.classList.add('highlight');
-                        // Flip arrows to show upstream information flow (from left-pointing to right-pointing)
-                        arrow.classList.remove('fa-long-arrow-alt-left');
-                        arrow.classList.add('fa-long-arrow-alt-right');
-                    }
-                });
-                // Position above the supply chain icons, not overlapping
-                contentDiv.style.left = `50%`;
-                contentDiv.style.top = `25%`; // Much higher to avoid overlap
-                contentDiv.style.transform = `translate(-50%, -50%)`;
-            }
-            
-            // Trigger fade-in
-            setTimeout(() => contentDiv.classList.add('visible'), 50);
+        
+        // Apply visual states
+        if (explanation.visualState) {
+            Object.entries(explanation.visualState).forEach(([stage, state]) => {
+                const node = document.getElementById(`${stage}-node`);
+                if (node) {
+                    node.classList.add(state);
+                }
+            });
+        }
+    }
+    
+    // Hide explanation when not in section
+    function hideExplanation() {
+        if (explanationContent) {
+            explanationContent.classList.remove('visible');
         }
     }
 
-    const steps = ['customer', 'retailer', 'wholesaler', 'distributor', 'factory', 'orders'];
-
+    // Handle scroll events
     scrollContainer.addEventListener('scroll', () => {
-        const { scrollTop, clientHeight } = scrollContainer;
-        const sectionTop = explainerSection.offsetTop;
-        const sectionHeight = explainerSection.offsetHeight;
-
-        // Check if we are within the explainer section
-        if (scrollTop >= sectionTop - clientHeight / 2 && scrollTop < sectionTop + sectionHeight - clientHeight / 2) {
-            const scrollPortion = (scrollTop - sectionTop) / (sectionHeight - clientHeight);
-            const stepIndex = Math.min(steps.length - 1, Math.floor(scrollPortion * steps.length));
-            updateHighlight(steps[stepIndex]);
+        const scrollTop = scrollContainer.scrollTop;
+        const sectionTop = dynamicsSection.offsetTop;
+        const sectionHeight = dynamicsSection.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        
+        // Check if we're in the dynamics section
+        if (scrollTop >= sectionTop - viewportHeight / 2 && 
+            scrollTop < sectionTop + sectionHeight - viewportHeight / 2) {
+            
+            // Calculate which step we're on
+            const scrollProgress = (scrollTop - sectionTop) / (sectionHeight - viewportHeight);
+            const newStep = Math.min(
+                explanations.length - 1,
+                Math.max(0, Math.floor(scrollProgress * explanations.length))
+            );
+            
+            if (newStep !== currentStep) {
+                currentStep = newStep;
+                updateVisualization(currentStep);
+            }
         } else {
-            updateHighlight(null); // Clear when outside the section
+            // Hide explanation when not in section
+            hideExplanation();
         }
     });
+    
+    // Initialize with first explanation
+    updateVisualization(0);
 }
 
 // Progressive Bullwhip Chart (Fixed Chart with Dynamic Lines)
@@ -322,10 +312,11 @@ function initProgressiveBullwhipChart() {
     const explanationContainer = document.getElementById('bullwhip-explanation-container');
 
     if (!scrollContainer || !progressiveSection || !explanationContainer) return;
-
-    // Create the initial chart
+    
+    // Create the initial charts
     createBullwhipChart();
-
+    createInventoryChart();
+    
     const explanations = {
         0: {
             title: "The Bullwhip Effect",
@@ -353,7 +344,7 @@ function initProgressiveBullwhipChart() {
             highlightClass: ''
         }
     };
-
+    
     function updateBullwhipStep(step) {
         if (currentBullwhipStep === step) return;
         
@@ -405,90 +396,122 @@ function initProgressiveBullwhipChart() {
 function createBullwhipChart() {
     const ctx = document.getElementById('bullwhipProgressiveChart');
     if (!ctx) return;
-
+    
     const labels = Array.from({ length: 20 }, (_, i) => `Week ${i + 1}`);
 
-    // Pre-load all datasets, with only customer demand visible initially
-    const allDatasets = [
-        {
-            label: 'Customer Demand',
-            data: [8, 8, 8, 8, 12, 12, 12, 12, 8, 8, 8, 8, 12, 12, 12, 12, 8, 8, 8, 8],
-            borderColor: '#f59e0b', // Amber
-            backgroundColor: 'rgba(245, 158, 11, 0.1)',
-            borderWidth: 3,
-            tension: 0.4,
-            pointRadius: 0,
-            hidden: false, // Visible from start
-        },
-        {
-            label: 'Retailer Orders',
-            data: [8, 8, 8, 16, 16, 12, 12, 8, 8, 8, 16, 16, 12, 12, 8, 8, 8, 8, 12, 12],
-            borderColor: '#60a5fa', // Blue
-            backgroundColor: 'rgba(96, 165, 250, 0.1)',
-            borderWidth: 3,
-            tension: 0.4,
-            pointRadius: 0,
-            hidden: true, // Hidden initially
-        },
-        {
-            label: 'Wholesaler Orders',
-            data: [8, 8, 12, 20, 20, 16, 8, 4, 8, 12, 20, 20, 16, 8, 4, 4, 8, 12, 16, 16],
-            borderColor: '#a78bfa', // Purple
-            backgroundColor: 'rgba(167, 139, 250, 0.1)',
-            borderWidth: 3,
-            tension: 0.4,
-            pointRadius: 0,
-            hidden: true, // Hidden initially
-        },
-        {
-            label: 'Factory Production',
-            data: [8, 10, 16, 24, 24, 16, 0, 0, 4, 12, 24, 28, 20, 4, 0, 0, 8, 16, 20, 20],
-            borderColor: '#f87171', // Red
-            backgroundColor: 'rgba(248, 113, 113, 0.1)',
-            borderWidth: 3,
-            tension: 0.4,
-            pointRadius: 0,
-            hidden: true, // Hidden initially
-        }
-    ];
+    // Data for the bullwhip effect chart
+    const chartData = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Customer Demand',
+                data: [4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+                borderColor: '#10b981',
+                backgroundColor: 'transparent',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: false
+            },
+            {
+                label: 'Retailer Orders',
+                data: [4, 4, 4, 8, 12, 15, 10, 8, 5, 5, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+                borderColor: '#60a5fa',
+                backgroundColor: 'transparent',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: true
+            },
+            {
+                label: 'Wholesaler Orders',
+                data: [4, 4, 6, 10, 16, 20, 12, 5, 0, 0, 4, 10, 12, 10, 8, 8, 8, 8, 8, 8],
+                borderColor: '#a78bfa',
+                backgroundColor: 'transparent',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: true
+            },
+            {
+                label: 'Factory Production',
+                data: [4, 5, 8, 14, 24, 32, 18, 0, 0, 0, 0, 15, 20, 15, 10, 8, 8, 8, 8, 8],
+                borderColor: '#f87171',
+                backgroundColor: 'transparent',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: true
+            }
+        ]
+    };
 
+    // Create the chart
     progressiveBullwhipChart = new Chart(ctx, {
         type: 'line',
-        data: {
-            labels: labels,
-            datasets: allDatasets
-        },
+        data: chartData,
         options: {
             responsive: true,
             maintainAspectRatio: false,
             animation: {
-                duration: 1500,
-                easing: 'easeInOutQuart',
+                duration: 2000,
+                easing: 'easeInOutQuart'
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: '#f0f0f0',
+                        font: {
+                            size: 14
+                        },
+                        padding: 20,
+                        usePointStyle: true
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'The Bullwhip Effect in Action',
+                    color: '#f0f0f0',
+                    font: {
+                        size: 24,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    }
+                }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                    ticks: { color: '#d1d5db' }
+                    max: 40,
+                    ticks: {
+                        color: '#d1d5db',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Units Ordered',
+                        color: '#f0f0f0',
+                        font: {
+                            size: 14
+                        }
+                    }
                 },
                 x: {
-                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                    ticks: { color: '#d1d5db' }
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
+                    ticks: {
                         color: '#d1d5db',
-                        font: { size: 14 }
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
                     }
-                }
-            },
-            elements: {
-                line: {
-                    // Ensure smooth line rendering
-                    borderJoinStyle: 'round',
-                    borderCapStyle: 'round'
                 }
             }
         }
@@ -497,42 +520,183 @@ function createBullwhipChart() {
 
 function showNextDataset(step) {
     if (!progressiveBullwhipChart) return;
-
-    // Map steps to dataset indices
-    // Step 0: Customer Demand (already visible)
-    // Step 1: + Retailer Orders (dataset index 1)
-    // Step 2: + Wholesaler Orders (dataset index 2)  
-    // Step 3: + Factory Production (dataset index 3)
-    // Step 4: All lines visible (no action needed)
-
-    const datasetIndex = step;
     
-    // Show the dataset if it exists and is currently hidden
-    if (datasetIndex > 0 && datasetIndex < progressiveBullwhipChart.data.datasets.length) {
-        const dataset = progressiveBullwhipChart.data.datasets[datasetIndex];
-        if (dataset && dataset.hidden) {
-            progressiveBullwhipChart.show(datasetIndex);
-        }
+    // Show datasets progressively
+    if (step <= 3) {
+        progressiveBullwhipChart.data.datasets[step].hidden = false;
+        progressiveBullwhipChart.update('active');
+    }
+    
+    // Also update inventory chart visibility
+    if (window.inventoryChart && step <= 3) {
+        window.inventoryChart.data.datasets[step].hidden = false;
+        window.inventoryChart.update('active');
     }
 }
 
+// Create Inventory/Backlog Chart
+function createInventoryChart() {
+    const ctx = document.getElementById('inventoryChart');
+    if (!ctx) return;
+    
+    const labels = Array.from({ length: 20 }, (_, i) => `Week ${i + 1}`);
+    
+    // Inventory/Backlog data (positive = inventory, negative = backlog)
+    const chartData = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Retailer Inventory',
+                data: [12, 12, 12, 8, 4, -2, -4, -2, 2, 6, 10, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+                borderColor: '#60a5fa',
+                backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: false
+            },
+            {
+                label: 'Wholesaler Inventory',
+                data: [12, 12, 10, 6, -2, -8, -10, -6, 0, 4, 8, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+                borderColor: '#a78bfa',
+                backgroundColor: 'rgba(167, 139, 250, 0.1)',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: true
+            },
+            {
+                label: 'Distributor Inventory',
+                data: [12, 11, 8, 2, -8, -16, -18, -12, -4, 2, 8, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+                borderColor: '#f59e0b',
+                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: true
+            },
+            {
+                label: 'Factory Inventory',
+                data: [12, 10, 6, -4, -16, -28, -30, -20, -8, 4, 12, 16, 14, 12, 12, 12, 12, 12, 12, 12],
+                borderColor: '#f87171',
+                backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: true
+            }
+        ]
+    };
+    
+    // Create the chart
+    window.inventoryChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 2000,
+                easing: 'easeInOutQuart'
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: '#f0f0f0',
+                        font: {
+                            size: 14
+                        },
+                        padding: 20,
+                        usePointStyle: true
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Inventory & Backlog Levels',
+                    color: '#f0f0f0',
+                    font: {
+                        size: 24,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    }
+                },
+                annotation: {
+                    annotations: {
+                        zeroLine: {
+                            type: 'line',
+                            yMin: 0,
+                            yMax: 0,
+                            borderColor: 'rgba(255, 255, 255, 0.3)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            label: {
+                                enabled: true,
+                                content: 'Zero Inventory',
+                                position: 'end',
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                color: '#f0f0f0',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: -35,
+                    max: 20,
+                    ticks: {
+                        color: '#d1d5db',
+                        font: {
+                            size: 12
+                        },
+                        callback: function(value) {
+                            return value < 0 ? `${Math.abs(value)} Backlog` : `${value} Units`;
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Inventory (+) / Backlog (-)',
+                        color: '#f0f0f0',
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#d1d5db',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            }
+        }
+    });
+}
+
 function updateBullwhipExplanation(step, explanation) {
-    const explanationContainer = document.getElementById('bullwhip-explanation-container');
-    if (!explanationContainer || !explanation) return;
-
-    // Clear previous explanation
-    explanationContainer.innerHTML = '';
-
-    const contentDiv = document.createElement('div');
-    contentDiv.className = `bullwhip-explanation-content ${explanation.highlightClass}`;
-    contentDiv.innerHTML = `
-        <h3 class="bullwhip-explanation-title highlight-text">${explanation.title}</h3>
-        <p class="bullwhip-explanation-text ${explanation.highlightClass}">${explanation.text}</p>
+    const container = document.getElementById('bullwhip-explanation-container');
+    if (!container || !explanation) return;
+    
+    // Clear and update content
+    container.innerHTML = `
+        <div class="bullwhip-explanation-content visible">
+            <h3 class="${explanation.highlightClass}">${explanation.title}</h3>
+            <p>${explanation.text}</p>
+        </div>
     `;
-    explanationContainer.appendChild(contentDiv);
-
-    // Trigger fade-in
-    setTimeout(() => contentDiv.classList.add('visible'), 50);
 }
 
 // Hugging Face Embed

@@ -8,7 +8,7 @@
     },
     "beer-game-info": {
       "title": "What is the Beer Game?",
-      "body": "The <span class=\"highlight-text\">Beer Distribution Game</span> was developed at MIT in the 1960s and has become a cornerstone of MBA and executive education worldwide. This supply chain simulation challenges players to minimize total costs while managing inventory and avoiding stockouts across four interconnected roles. The game demonstrates how information delays and limited visibility create the famous \"Bullwhip Effect\" - where small changes in customer demand amplify into wild swings upstream.",
+      "body": "The <span class=\"highlight-text\">Beer Distribution Game</span> was developed at MIT in the 1960s and has been played by MBA and Executive students for over 60 years. The goal is simple: minimize supply chain costs. Four players take different roles (retailer, wholesaler, distributor, and factory) in a beer distribution network.<br><br>The game works in rounds, each representing one week. Each player makes just ONE decision per round: how much to order from their supplier (or how much to produce as the factory). Despite this simple decision, two things make the game challenging:<br><br><strong>1. Limited Information:</strong> If you're not the retailer, you don't see what customers actually want.<br><strong>2. Delivery Delays:</strong> Orders take time to arrive from suppliers.<br><br>Players must track both their on-hand inventory and their pipeline inventory (what they ordered but hasn't arrived yet). These complications create the famous <span class=\"highlight-text\">Bullwhip Effect</span> - small changes in customer demand create wild swings in orders upstream in the supply chain.",
       "question": "<span class=\"highlight-text\">What happens when AI 🤖 plays the Beer Game?</span>"
     },
     "llm-beer-game": {
@@ -20,19 +20,19 @@
       "items": [
         {
           "t": "Retailer",
-          "b": "Sees customer orders and its own inventory. Decides: order to Wholesaler. Ships: to customers (backlog if short)."
+          "b": "<strong>Sees:</strong> Customer orders and own inventory<br><strong>Decides:</strong> How much to order from Wholesaler<br><strong>Ships:</strong> To customers (backlog if short)"
         },
         {
           "t": "Wholesaler", 
-          "b": "Sees Retailer's orders and its own state. Decides: order to Distributor. Ships: to Retailer."
+          "b": "<strong>Sees:</strong> Retailer's orders and own inventory<br><strong>Decides:</strong> How much to order from Distributor<br><strong>Ships:</strong> To Retailer"
         },
         {
           "t": "Distributor",
-          "b": "Sees Wholesaler's orders and its own state. Decides: order to Factory. Ships: to Wholesaler."
+          "b": "<strong>Sees:</strong> Wholesaler's orders and own inventory<br><strong>Decides:</strong> How much to order from Factory<br><strong>Ships:</strong> To Wholesaler"
         },
         {
           "t": "Factory",
-          "b": "Releases production (with a lead time) before it can ship. Decides: weekly production release. Ships: to Distributor."
+          "b": "<strong>Sees:</strong> Distributor's orders and own production pipeline<br><strong>Decides:</strong> How much to produce (with lead time)<br><strong>Ships:</strong> To Distributor"
         }
       ]
     },

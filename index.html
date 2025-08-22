@@ -16,6 +16,24 @@
             <div class="reveal">
                 <h1 id="hero-title">The <span class="highlight-text">Beer Game</span> 🍺</h1>
                 <p id="hero-kicker">Can AI agents 🤖 manage a classic supply chain exercise?</p>
+                <div class="authors-section">
+                    <div class="author">
+                        <a href="https://carol-long.github.io/" target="_blank" rel="noopener noreferrer">Carol Long</a>
+                        <span class="affiliation">(Harvard)</span>
+                    </div>
+                    <div class="author">
+                        <a href="https://cee.mit.edu/people_individual/david-simchi-levi/" target="_blank" rel="noopener noreferrer">David Simchi-Levi</a>
+                        <span class="affiliation">(MIT)</span>
+                    </div>
+                    <div class="author">
+                        <a href="https://andrecalmon.com/" target="_blank" rel="noopener noreferrer">Andre Calmon</a>
+                        <span class="affiliation">(Georgia Tech)</span>
+                    </div>
+                    <div class="author">
+                        <a href="https://people.seas.harvard.edu/~flavio/" target="_blank" rel="noopener noreferrer">Flavio Calmon</a>
+                        <span class="affiliation">(Harvard)</span>
+                    </div>
+                </div>
                 <p class="scroll-hint">Keep scrolling to explore<br><span class="desktop-hint">Best experienced on desktop</span></p>
                 <div class="scroll-indicator">
                     <i class="fas fa-chevron-down"></i>
@@ -27,7 +45,15 @@
         <section id="beer-game-info" class="section">
             <div class="reveal">
                 <h2 id="beer-game-info-title">What is the <span class="highlight-text">Beer Game</span>?</h2>
-                <p id="beer-game-info-body">Content loaded from JSON</p>
+                <div class="beer-game-content">
+                    <div class="beer-game-text">
+                        <p id="beer-game-info-body">Content loaded from JSON</p>
+                    </div>
+                    <div class="beer-game-image">
+                        <img src="assets/images/BeerGameBoard.jpg" alt="Original Beer Game Board from MIT" class="board-image">
+                        <p class="image-caption">The original Beer Game board used in MBA classrooms</p>
+                    </div>
+                </div>
                 <p id="beer-game-info-question" class="section-question" style="margin-top: 2rem; font-size: 1.25rem; font-weight: 600;">What happens when AI 🤖 plays the Beer Game?</p>
             </div>
         </section>
@@ -49,110 +75,141 @@
                 <div class="role-card" data-role="retailer">
                     <i class="fas fa-store role-icon"></i>
                     <h3 class="role-name">Retailer</h3>
-                    <p class="role-description">Sees customer orders and its own inventory. Decides: order to Wholesaler. Ships: to customers (backlog if short).</p>
+                    <p class="role-description">Content loaded from JSON</p>
                 </div>
                 <div class="role-card" data-role="wholesaler">
                     <i class="fas fa-warehouse role-icon"></i>
                     <h3 class="role-name">Wholesaler</h3>
-                    <p class="role-description">Sees Retailer's orders and its own state. Decides: order to Distributor. Ships: to Retailer.</p>
+                    <p class="role-description">Content loaded from JSON</p>
                 </div>
                 <div class="role-card" data-role="distributor">
                     <i class="fas fa-truck role-icon"></i>
                     <h3 class="role-name">Distributor</h3>
-                    <p class="role-description">Sees Wholesaler's orders and its own state. Decides: order to Factory. Ships: to Wholesaler.</p>
+                    <p class="role-description">Content loaded from JSON</p>
                 </div>
                 <div class="role-card" data-role="factory">
                     <i class="fas fa-industry role-icon"></i>
                     <h3 class="role-name">Factory</h3>
-                    <p class="role-description">Releases production (with a lead time) before it can ship. Decides: weekly production release. Ships: to Distributor.</p>
+                    <p class="role-description">Content loaded from JSON</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: The Supply Chain Explained (Interactive) -->
-        <div id="supply-chain-explainer-section">
-            <div class="supply-chain-sticky-wrapper">
-                <!-- Explanations will be injected here by JS -->
-                <div id="explanation-container"></div>
 
-                <!-- Sticky Supply Chain Diagram -->
-                <div class="chain-container">
-                    <div id="chain-customer" class="ai-chain-node">
-                        <i class="fas fa-users supply-chain-icon"></i>
-                        <p class="ai-label">Customer</p>
+        <!-- Section 5: Beer Game Dynamics -->
+        <div id="beer-game-dynamics-section">
+            <div class="dynamics-sticky-wrapper">
+                <!-- Title -->
+                <div class="dynamics-header">
+                    <h2>Beer Game Dynamics</h2>
+                    <p>Follow the flow of orders and beer through the supply chain</p>
+                    <div class="flow-direction-indicator">
+                        <span class="beer-direction">🍺 Beer flows downstream ←</span>
+                        <span class="divider">|</span>
+                        <span class="order-direction">→ Orders flow upstream</span>
                     </div>
-                    <i id="arrow-1" class="fas fa-long-arrow-alt-left arrow"></i>
-                    <div id="chain-retailer" class="ai-chain-node">
-                        <i class="fas fa-store supply-chain-icon"></i>
-                        <p class="ai-label">Retailer</p>
+                </div>
+                
+                <!-- Main Content Area with Side-by-Side Layout -->
+                <div class="dynamics-content">
+                    <!-- Left: Supply Chain Visualization -->
+                    <div class="supply-chain-container">
+                        <!-- Supply Chain Flow -->
+                        <div class="supply-chain-flow">
+                            <!-- Customer -->
+                            <div class="stage-node customer" id="customer-node">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            
+                            <!-- Arrow Flow -->
+                            <div class="arrow-flow">
+                                <div class="beer-flow">
+                                    <span class="beer-icon">🍺</span>
+                                </div>
+                                <div class="arrow-visual">←</div>
+                            </div>
+                            
+                            <!-- Retailer -->
+                            <div class="stage-node retailer" id="retailer-node">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            
+                            <!-- Arrow Flow -->
+                            <div class="arrow-flow delay">
+                                <div class="beer-flow">
+                                    <span class="beer-icon">🍺</span>
+                                    <span class="beer-icon">🍺</span>
+                                </div>
+                                <div class="arrow-visual">←</div>
+                            </div>
+                            
+                            <!-- Wholesaler -->
+                            <div class="stage-node wholesaler" id="wholesaler-node">
+                                <i class="fas fa-warehouse"></i>
+                            </div>
+                            
+                            <!-- Arrow Flow -->
+                            <div class="arrow-flow delay">
+                                <div class="beer-flow">
+                                    <span class="beer-icon">🍺</span>
+                                    <span class="beer-icon">🍺</span>
+                                </div>
+                                <div class="arrow-visual">←</div>
+                            </div>
+                            
+                            <!-- Distributor -->
+                            <div class="stage-node distributor" id="distributor-node">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            
+                            <!-- Arrow Flow -->
+                            <div class="arrow-flow delay">
+                                <div class="beer-flow">
+                                    <span class="beer-icon">🍺</span>
+                                    <span class="beer-icon">🍺</span>
+                                </div>
+                                <div class="arrow-visual">←</div>
+                            </div>
+                            
+                            <!-- Factory -->
+                            <div class="stage-node factory" id="factory-node">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                        </div>
                     </div>
-                    <i id="arrow-2" class="fas fa-long-arrow-alt-left arrow"></i>
-                    <div id="chain-wholesaler" class="ai-chain-node">
-                        <i class="fas fa-warehouse supply-chain-icon"></i>
-                        <p class="ai-label">Wholesaler</p>
-                    </div>
-                    <i id="arrow-3" class="fas fa-long-arrow-alt-left arrow"></i>
-                    <div id="chain-distributor" class="ai-chain-node">
-                        <i class="fas fa-truck supply-chain-icon"></i>
-                        <p class="ai-label">Distributor</p>
-                    </div>
-                    <i id="arrow-4" class="fas fa-long-arrow-alt-left arrow"></i>
-                    <div id="chain-factory" class="ai-chain-node">
-                        <i class="fas fa-industry supply-chain-icon"></i>
-                        <p class="ai-label">Factory</p>
+                    
+                    <!-- Right: Explanation Panel -->
+                    <div class="explanation-panel" id="dynamics-explanation-panel">
+                        <div class="explanation-content" id="dynamics-explanation-content">
+                            <h3 id="explanation-title"></h3>
+                            <p id="explanation-text"></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Section 4: A Week in the Game -->
-        <section id="week" class="section">
-            <div class="reveal">
-                <h2 id="week-title">A Week in the Game</h2>
-            </div>
-            <div class="timeline reveal">
-                <div class="timeline-step">
-                    <div class="step-number">1</div>
-                    <span class="step-label">Receive</span>
-                </div>
-                <i class="fas fa-arrow-right timeline-arrow"></i>
-                <div class="timeline-step">
-                    <div class="step-number">2</div>
-                    <span class="step-label">Ship</span>
-                </div>
-                <i class="fas fa-arrow-right timeline-arrow"></i>
-                <div class="timeline-step">
-                    <div class="step-number">3</div>
-                    <span class="step-label">Record</span>
-                </div>
-                <i class="fas fa-arrow-right timeline-arrow"></i>
-                <div class="timeline-step">
-                    <div class="step-number">4</div>
-                    <span class="step-label">Advance</span>
-                </div>
-                <i class="fas fa-arrow-right timeline-arrow"></i>
-                <div class="timeline-step">
-                    <div class="step-number">5</div>
-                    <span class="step-label">Order</span>
-                </div>
-            </div>
-            <p class="reveal week-description">Receive shipments; ship downstream (backlog if short); record inventory/backlog; advance pipelines; place order upstream (Factory: release production).</p>
-        </section>
-
-        <!-- Section 5: Progressive Bullwhip Effect -->
+        <!-- Section 6: Progressive Bullwhip Effect -->
         <div id="bullwhip-progressive-section">
             <div class="bullwhip-sticky-wrapper">
                 <!-- Dynamic explanations will be injected here by JS -->
                 <div id="bullwhip-explanation-container"></div>
 
-                <!-- Sticky Fixed Chart -->
-                <div class="bullwhip-chart-container">
-                    <canvas id="bullwhipProgressiveChart"></canvas>
+                <!-- Charts Container -->
+                <div class="bullwhip-charts-wrapper">
+                    <!-- Orders Chart -->
+                    <div class="bullwhip-chart-container">
+                        <canvas id="bullwhipProgressiveChart"></canvas>
+                    </div>
+                    <!-- Inventory/Backlog Chart -->
+                    <div class="bullwhip-chart-container">
+                        <canvas id="inventoryChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Section 6: Q: What happens when AI plays the Beer Game? -->
+        <!-- Section 7: Q: What happens when AI plays the Beer Game? -->
         <section id="aiq" class="section">
             <div class="reveal">
                 <h2 id="aiq-title">What happens when AI plays the <span class="highlight-text">Beer Game</span>?</h2>
@@ -164,79 +221,75 @@
                     <i class="fas fa-users supply-chain-icon"></i>
                     <p class="ai-label">Customer</p>
                 </div>
-                <i class="fas fa-long-arrow-alt-left chain-arrow"></i>
+                <i class="fas fa-arrow-right"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-store supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="retailer"></i>
                     <p class="ai-label">Retailer</p>
                 </div>
-                <i class="fas fa-long-arrow-alt-left chain-arrow"></i>
+                <i class="fas fa-arrow-right"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-warehouse supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="wholesaler"></i>
                     <p class="ai-label">Wholesaler</p>
                 </div>
-                <i class="fas fa-long-arrow-alt-left chain-arrow"></i>
+                <i class="fas fa-arrow-right"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-truck supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="distributor"></i>
                     <p class="ai-label">Distributor</p>
                 </div>
-                <i class="fas fa-long-arrow-alt-left chain-arrow"></i>
+                <i class="fas fa-arrow-right"></i>
                 <div class="ai-chain-node">
                     <i class="fas fa-industry supply-chain-icon"></i>
                     <i class="fas fa-robot robot-icon" data-role="factory"></i>
                     <p class="ai-label">Factory</p>
                 </div>
             </div>
-
-            <!-- AI Bullets -->
-            <div class="reveal">
+            
+            <div class="container">
                 <ul id="aiq-bullets">
-                    <li>Do LLMs exhibit the bullwhip effect when managing supply chain roles with limited information?</li>
-                    <li>How does information sharing (customer demand visibility, demand history) impact LLM performance?</li>
-                    <li>Does reducing lead times from two weeks to one week improve LLM coordination?</li>
-                    <li>Can LLMs effectively balance inventory holding costs ($0.50) vs. backlog costs ($1.00)?</li>
+                    <!-- Bullets will be populated from JSON -->
                 </ul>
             </div>
         </section>
 
-        <!-- Section 7: Key Variables -->
+        <!-- Section 8: Key Variables -->
         <section id="vars" class="section">
             <div class="reveal">
                 <h2 id="vars-title">Key Variables</h2>
-                <ul id="vars-list" class="variables-list">
-                    <li>Holding cost</li>
-                    <li>Backlog (stockout) cost</li>
-                    <li>Shipment delay</li>
-                    <li>Production lead time (Factory)</li>
-                    <li>Fill rate</li>
-                    <li>Total cost</li>
-                </ul>
+                <p id="vars-text" class="reveal">Players track these metrics to minimize total costs</p>
+            </div>
+            <div id="vars-grid" class="vars-grid reveal">
+                <!-- Variables will be populated from JSON -->
             </div>
         </section>
 
-        <!-- Section 8: Try It -->
+        <!-- Section 9: Try It -->
         <section id="try" class="section">
             <div class="reveal">
                 <h2 id="try-title">Try the Simulation</h2>
+                <p id="try-text" class="reveal">Experience the Beer Game with AI agents</p>
             </div>
-            <div class="embed-container reveal">
-                <iframe id="hf-frame" title="Beer Game AI Agents" loading="lazy">
-                </iframe>
-                <p><a id="hf-link" class="btn" target="_blank" rel="noopener">Open in a new tab</a></p>
+            <div class="iframe-container reveal">
+                <iframe id="hf-frame" src="" title="Beer Game Simulation"></iframe>
+                <a id="hf-link" href="" target="_blank" class="external-link">Open in new tab ↗</a>
             </div>
         </section>
 
-        <!-- Section 9: Credits -->
+        <!-- Section 10: Credits -->
         <section id="credits" class="section">
             <div class="reveal">
                 <h2 id="credits-title">Credits</h2>
-                <p id="credits-body">This game is developed by Carol Long, David Simchi-Levi, Andre du Pin Calmon, and Flavio du Pin Calmon. For inquiries or collaboration, feel free to reach out via email.</p>
+                <p id="credits-text" class="reveal">Acknowledgments and references</p>
+            </div>
+            <div id="credits-content" class="credits-content reveal">
+                <!-- Credits will be populated from JSON -->
             </div>
         </section>
     </main>
 
-    <script src="assets/js/main.js"></script>
+    <!-- Load JavaScript -->
+    <script src="./assets/js/main.js"></script>
 </body>
 </html>
