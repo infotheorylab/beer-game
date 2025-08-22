@@ -79,17 +79,6 @@
         "Try the simulation to compare behaviors."
       ]
     },
-    "vars": {
-      "title": "Key Variables",
-      "items": [
-        "Holding cost",
-        "Backlog (stockout) cost", 
-        "Shipment delay",
-        "Production lead time (Factory)",
-        "Fill rate",
-        "Total cost"
-      ]
-    },
     "try": {
       "title": "Try the Simulation",
       "cta": "Open on Hugging Face"

@@ -150,6 +150,38 @@ p {
   }
 }
 
+/* Lab Logos */
+.lab-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 1.5rem 0;
+}
+
+.lab-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.lab-logo:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .lab-logos {
+    gap: 1rem;
+  }
+  
+  .lab-logo {
+    height: 50px;
+  }
+}
+
 /* Beer Game Info Section */
 .beer-game-content {
   display: flex;
