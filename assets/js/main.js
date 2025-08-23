@@ -688,7 +688,7 @@ function createBullwhipChart() {
         datasets: [
             {
                 label: 'Customer Demand',
-                data: [4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+                data: [4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
                 borderColor: '#10b981',
                 backgroundColor: 'transparent',
                 borderWidth: 3,
@@ -697,7 +697,7 @@ function createBullwhipChart() {
             },
             {
                 label: 'Retailer Orders',
-                data: [4, 4, 4, 8, 12, 15, 10, 8, 5, 5, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+                data: [0, 0, 0, 4, 12, 20, 28, 28, 32, 32, 32, 30, 28, 24, 22, 2, 0, 0, 0, 0],
                 borderColor: '#60a5fa',
                 backgroundColor: 'transparent',
                 borderWidth: 3,
@@ -706,7 +706,7 @@ function createBullwhipChart() {
             },
             {
                 label: 'Wholesaler Orders',
-                data: [4, 4, 6, 10, 16, 20, 12, 5, 0, 0, 4, 10, 12, 10, 8, 8, 8, 8, 8, 8],
+                data: [0, 0, 0, 0, 8, 18, 38, 68, 60, 82, 82, 82, 30, 144, 144, 144, 0, 0, 0, 0],
                 borderColor: '#a78bfa',
                 backgroundColor: 'transparent',
                 borderWidth: 3,
@@ -714,8 +714,17 @@ function createBullwhipChart() {
                 hidden: true
             },
             {
+                label: 'Distributor Orders',
+                data: [0, 0, 0, 0, 10, 10, 28, 38, 96, 96, 216, 216, 216, 226, 144, 186, 144, 0, 0, 0],
+                borderColor: '#f59e0b',
+                backgroundColor: 'transparent',
+                borderWidth: 3,
+                tension: 0.1,
+                hidden: true
+            },
+            {
                 label: 'Factory Production',
-                data: [4, 5, 8, 14, 24, 32, 18, 0, 0, 0, 0, 15, 20, 15, 10, 8, 8, 8, 8, 8],
+                data: [0, 0, 0, 0, 6, 10, 10, 28, 44, 112, 112, 216, 372, 372, 226, 142, 144, 104, 0, 0],
                 borderColor: '#f87171',
                 backgroundColor: 'transparent',
                 borderWidth: 3,
@@ -726,7 +735,7 @@ function createBullwhipChart() {
     };
 
     // Create the chart
-    progressiveBullwhipChart = new Chart(ctx, {
+    window.bullwhipChart = new Chart(ctx, {
         type: 'line',
         data: chartData,
         options: {
@@ -766,7 +775,7 @@ function createBullwhipChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 40,
+                    max: 400,
                     ticks: {
                         color: '#d1d5db',
                         font: {
@@ -830,7 +839,7 @@ function createInventoryChart() {
         datasets: [
             {
                 label: 'Retailer Inventory',
-                data: [12, 12, 12, 8, 4, -2, -4, -2, 2, 6, 10, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+                data: [12, 8, 4, 0, -8, -16, -20, -16, -24, -24, -24, -22, -20, -16, -14, 6, 42, 146, 174, 166],
                 borderColor: '#60a5fa',
                 backgroundColor: 'rgba(96, 165, 250, 0.1)',
                 borderWidth: 3,
@@ -839,7 +848,7 @@ function createInventoryChart() {
             },
             {
                 label: 'Wholesaler Inventory',
-                data: [12, 12, 10, 6, -2, -8, -10, -6, 0, 4, 8, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+                data: [16, 16, 16, 16, 12, 0, -20, -40, -60, -82, -104, -124, -144, -144, -124, -34, 76, 292, 622, 622],
                 borderColor: '#a78bfa',
                 backgroundColor: 'rgba(167, 139, 250, 0.1)',
                 borderWidth: 3,
@@ -848,7 +857,7 @@ function createInventoryChart() {
             },
             {
                 label: 'Distributor Inventory',
-                data: [12, 11, 8, 2, -8, -16, -18, -12, -4, 2, 8, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+                data: [16, 16, 16, 16, 8, -10, -38, -96, -144, -216, -270, -308, -226, -258, -186, 42, 412, 598, 742, 742],
                 borderColor: '#f59e0b',
                 backgroundColor: 'rgba(245, 158, 11, 0.1)',
                 borderWidth: 3,
@@ -857,7 +866,7 @@ function createInventoryChart() {
             },
             {
                 label: 'Factory Inventory',
-                data: [12, 10, 6, -4, -16, -28, -30, -20, -8, 4, 12, 16, 14, 12, 12, 12, 12, 12, 12, 12],
+                data: [16, 16, 16, 16, 16, 16, 2, -16, -44, -112, -164, -268, -372, -372, -226, 2, 42, 40, 184, 288],
                 borderColor: '#f87171',
                 backgroundColor: 'rgba(248, 113, 113, 0.1)',
                 borderWidth: 3,
@@ -930,8 +939,8 @@ function createInventoryChart() {
             scales: {
                 y: {
                     beginAtZero: false,
-                    min: -35,
-                    max: 20,
+                    min: -400,
+                    max: 800,
                     ticks: {
                         color: '#d1d5db',
                         font: {
@@ -980,6 +989,93 @@ function updateBullwhipExplanation(step, explanation) {
             <p>${explanation.text}</p>
         </div>
     `;
+}
+
+// Progressive Bullwhip Chart System
+function initProgressiveBullwhipChart() {
+    // Create both charts
+    createBullwhipChart();
+    createInventoryChart();
+    
+    // Set up scroll listener for progressive revelation
+    const scrollContainer = document.querySelector('main');
+    const bullwhipSection = document.getElementById('bullwhip-progressive-section');
+    
+    if (!scrollContainer || !bullwhipSection) return;
+    
+    // Explanations for each step
+    const explanations = [
+        {
+            title: "Customer Demand Pattern",
+            text: "Customer demand shows a simple step change from 4 to 8 units, then remains stable. This is the only real input to the system.",
+            highlightClass: "customer-text"
+        },
+        {
+            title: "The Retailer Response",
+            text: "The Retailer sees customer demand and tries to maintain inventory. Notice how their orders already show more variability than actual customer demand.",
+            highlightClass: "retailer-text"
+        },
+        {
+            title: "The Wholesaler Amplifies",
+            text: "The Wholesaler faces amplified demand from the Retailer and adds their own forecasting errors. Orders become even more volatile.",
+            highlightClass: "wholesaler-text"
+        },
+        {
+            title: "The Distributor Chaos",
+            text: "The Distributor receives highly volatile orders from the Wholesaler, creating even more extreme ordering patterns as they try to manage uncertainty.",
+            highlightClass: "distributor-text"
+        },
+        {
+            title: "The Factory Extremes",
+            text: "By the time demand signals reach the Factory, they're completely distorted. Small customer changes create massive production swings - from 372 units to 0!",
+            highlightClass: "factory-text"
+        },
+        {
+            title: "The Complete Bullwhip Effect",
+            text: "This is the bullwhip effect: stable customer demand creates chaos upstream. Each player acts rationally but lacks information, amplifying variability at every step.",
+            highlightClass: ""
+        }
+    ];
+    
+    function updateCharts() {
+        const rect = bullwhipSection.getBoundingClientRect();
+        const sectionHeight = rect.height;
+        const viewportHeight = window.innerHeight;
+        
+        // Calculate scroll progress within the section (0 to 1)
+        const scrollProgress = Math.max(0, Math.min(1, -rect.top / (sectionHeight - viewportHeight)));
+        
+        // Determine which datasets should be visible based on scroll progress
+        const totalSteps = 5; // 5 datasets (customer, retailer, wholesaler, distributor, factory)
+        const currentStep = Math.floor(scrollProgress * totalSteps);
+        
+        // Update bullwhip chart visibility
+        if (window.bullwhipChart) {
+            window.bullwhipChart.data.datasets.forEach((dataset, index) => {
+                dataset.hidden = index > currentStep;
+            });
+            window.bullwhipChart.update('none'); // No animation for smooth scrolling
+        }
+        
+        // Update inventory chart visibility
+        if (window.inventoryChart) {
+            window.inventoryChart.data.datasets.forEach((dataset, index) => {
+                dataset.hidden = index > currentStep;
+            });
+            window.inventoryChart.update('none'); // No animation for smooth scrolling
+        }
+        
+        // Update explanation text
+        const explanationIndex = Math.min(currentStep, explanations.length - 1);
+        updateBullwhipExplanation(currentStep, explanations[explanationIndex]);
+    }
+    
+    // Listen for scroll events
+    scrollContainer.addEventListener('scroll', updateCharts);
+    window.addEventListener('resize', updateCharts);
+    
+    // Initial state
+    updateCharts();
 }
 
 // Hugging Face Embed

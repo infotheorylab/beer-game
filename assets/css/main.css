@@ -2893,7 +2893,7 @@ p {
   position: absolute !important;
   top: 4rem !important;
   left: auto !important;
-  right: 2rem !important;
+  right: max(2rem, calc(50vw - 600px)) !important;
   max-width: 350px;
   z-index: 25;
   pointer-events: none;
@@ -2936,7 +2936,7 @@ p {
   list-style: none;
   padding: 0;
   margin: 0 auto;
-  max-width: 60ch;
+  max-width: 70ch;
 }
 
 .aiq-description-bullets li {
@@ -2996,7 +2996,7 @@ p {
   list-style: none;
   padding: 0;
   margin: 0 auto;
-  max-width: 60ch;
+  max-width: 70ch;
   text-align: left;
 }
 
@@ -3037,7 +3037,7 @@ p {
   list-style: none;
   padding: 0;
   margin: 2rem auto 0;
-  max-width: 60ch;
+  max-width: 80ch;
   text-align: left;
 }
 
@@ -3143,6 +3143,150 @@ p {
   .simulation-overlay p {
     font-size: 1.125rem;
   }
+}
+
+/* Authors Section */
+#authors {
+  min-height: auto;
+  padding: 4rem 1.25rem;
+}
+
+#authors-description {
+  max-width: 60ch;
+  margin: 0 auto 3rem;
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+}
+
+.authors-profiles {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem 4rem;
+}
+
+.author-profile {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  text-align: left;
+}
+
+.author-image {
+  flex-shrink: 0;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border);
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+.author-info {
+  flex: 1;
+}
+
+.author-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.author-info h3 a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.author-info h3 a:hover {
+  color: var(--accent);
+}
+
+.author-info .affiliation {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.author-info .bio {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .authors-profiles {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .author-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Credits Section */
+#credits {
+  min-height: auto;
+  padding: 4rem 1.25rem;
+}
+
+.credits-content {
+  max-width: 60ch;
+  margin: 2rem auto 0;
+  text-align: left;
+}
+
+.credits-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.credits-content em {
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+/* Bullwhip Explanation Highlighting */
+.customer-text {
+  color: var(--customer) !important;
+}
+
+.retailer-text {
+  color: var(--retailer) !important;
+}
+
+.wholesaler-text {
+  color: var(--wholesaler) !important;
+}
+
+.distributor-text {
+  color: var(--distributor) !important;
+}
+
+.factory-text {
+  color: var(--factory) !important;
 }
 
 
