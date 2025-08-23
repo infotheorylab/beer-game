@@ -2966,15 +2966,41 @@ p {
   font-weight: 600;
 }
 
-/* AI Section JSON Bullets (Second Slide) */
-#aiq-bullets {
+/* Orchestra-Aided Decision-Making Section */
+.orchestra-content {
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  text-align: center;
+}
+
+.orchestra-description {
+  margin-bottom: 3rem;
+}
+
+.orchestra-description p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+.orchestra-scenarios h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+}
+
+.orchestra-scenario-list {
   list-style: none;
   padding: 0;
   margin: 0 auto;
   max-width: 60ch;
+  text-align: left;
 }
 
-#aiq-bullets li {
+.orchestra-scenario-list li {
   position: relative;
   padding-left: 2rem;
   margin-bottom: 1.5rem;
@@ -2983,11 +3009,11 @@ p {
   color: var(--text-secondary);
 }
 
-#aiq-bullets li:last-child {
+.orchestra-scenario-list li:last-child {
   margin-bottom: 0;
 }
 
-#aiq-bullets li::before {
+.orchestra-scenario-list li::before {
   content: "•";
   position: absolute;
   left: 0;
@@ -2996,8 +3022,9 @@ p {
   font-size: 1.5rem;
 }
 
-#aiq-bullets li strong {
+.orchestra-scenario-list li strong {
   color: var(--text-primary);
   font-weight: 600;
 }
+
 

@@ -988,45 +988,10 @@ function initHuggingFaceEmbed() {
     // If no URL is provided, the iframe will show empty
 }
 
-// AIQ Section Content Switching
+// AIQ Section - Single Content (no switching needed)
 function initAIQContentSwitching() {
-    const scrollContainer = document.querySelector('main');
-    const aiqSection = document.getElementById('aiq-section');
-    const descriptionContent = document.getElementById('aiq-description');
-    const bulletsContent = document.getElementById('aiq-bullets-content');
-    
-    if (!scrollContainer || !aiqSection) return;
-    
-    let currentContent = 'description';
-    
-    function updateAIQContent() {
-        const rect = aiqSection.getBoundingClientRect();
-        const sectionHeight = rect.height;
-        const viewportHeight = window.innerHeight;
-        
-        // Calculate scroll progress within the section
-        const scrollProgress = Math.max(0, Math.min(1, -rect.top / (sectionHeight - viewportHeight)));
-        
-        // Switch content when user scrolls halfway through the section
-        const shouldShowBullets = scrollProgress > 0.5;
-        
-        if (shouldShowBullets && currentContent === 'description') {
-            currentContent = 'bullets';
-            descriptionContent.classList.remove('active');
-            bulletsContent.classList.add('active');
-        } else if (!shouldShowBullets && currentContent === 'bullets') {
-            currentContent = 'description';
-            bulletsContent.classList.remove('active');
-            descriptionContent.classList.add('active');
-        }
-    }
-    
-    // Listen for scroll events
-    scrollContainer.addEventListener('scroll', updateAIQContent);
-    window.addEventListener('resize', updateAIQContent);
-    
-    // Initial state
-    updateAIQContent();
+    // No longer needed since we only have one content slide
+    return;
 }
 
 // Utility function for smooth scrolling (optional enhancement)
