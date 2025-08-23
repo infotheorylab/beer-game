@@ -205,7 +205,7 @@ p {
 
 .board-image {
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -2833,5 +2833,171 @@ p {
   .simple-stage-node {
     min-width: auto;
   }
+}
+
+/* Bullwhip Progressive Section */
+#bullwhip-progressive-section {
+  min-height: 400vh;
+  position: relative;
+}
+
+.bullwhip-sticky-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.bullwhip-header {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+}
+
+.bullwhip-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.bullwhip-charts-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+  height: 85vh;
+  margin-top: 4rem;
+}
+
+.bullwhip-chart-container {
+  flex: 1;
+  position: relative;
+  min-height: 300px;
+  background: rgba(42, 42, 42, 0.8);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--border);
+}
+
+/* Bullwhip Explanation Container */
+#bullwhip-explanation-container {
+  position: absolute !important;
+  top: 4rem !important;
+  left: auto !important;
+  right: 2rem !important;
+  max-width: 350px;
+  z-index: 25;
+  pointer-events: none;
+}
+
+.bullwhip-explanation-content {
+  background: rgba(26, 26, 26, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.bullwhip-explanation-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bullwhip-explanation-content h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bullwhip-explanation-content p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: none;
+}
+
+/* AI Section Description Bullets */
+.aiq-description-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 60ch;
+}
+
+.aiq-description-bullets li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.aiq-description-bullets li:last-child {
+  margin-bottom: 0;
+}
+
+.aiq-description-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.aiq-description-bullets li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* AI Section JSON Bullets (Second Slide) */
+#aiq-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 60ch;
+}
+
+#aiq-bullets li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+#aiq-bullets li:last-child {
+  margin-bottom: 0;
+}
+
+#aiq-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+#aiq-bullets li strong {
+  color: var(--text-primary);
+  font-weight: 600;
 }
 

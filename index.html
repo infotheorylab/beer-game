@@ -22,7 +22,7 @@
                         <span class="affiliation">Harvard</span>
                     </div>
                     <div class="author">
-                        <a href="https://cee.mit.edu/people_individual/david-simchi-levi/" target="_blank" rel="noopener noreferrer">David Simchi-Levi</a>
+                        <a href="https://slevi1.mit.edu/" target="_blank" rel="noopener noreferrer">David Simchi-Levi</a>
                         <span class="affiliation">MIT</span>
                     </div>
                     <div class="author">
@@ -301,13 +301,17 @@
                         <p>Players must track both their on-hand inventory and their pipeline inventory (what they ordered but hasn't arrived yet). These complications create the famous <span class="highlight-text">Bullwhip Effect</span> - small changes in customer demand create wild swings in orders upstream in the supply chain.</p>
                     </div>
                 </div>
-                <p id="beer-game-info-question" class="section-question" style="margin-top: 2rem; font-size: 1.25rem; font-weight: 600;">What happens when AI 🤖 plays the Beer Game?</p>
+                <p id="beer-game-info-question" class="section-question" style="margin-top: 2rem; font-size: 1.25rem; font-weight: 600;">We will explore what happens when AI 🤖 plays the Beer Game.</p>
             </div>
         </section>
 
         <!-- Section 5: Progressive Bullwhip Effect -->
         <div id="bullwhip-progressive-section">
             <div class="bullwhip-sticky-wrapper">
+                <!-- Fixed Title -->
+                <div class="bullwhip-header">
+                    <h2>Key Metrics</h2>
+                </div>
                 <!-- Dynamic explanations will be injected here by JS -->
                 <div id="bullwhip-explanation-container"></div>
 
@@ -370,7 +374,12 @@
                     <!-- Content 1: Descriptive Paragraph -->
                     <div class="aiq-content aiq-description active" id="aiq-description">
                         <div class="container">
-                            <p>The LLM-powered Beer Distribution Game shares much with the classic version — but with a twist: instead of human players, this game is played among Large Language Models (LLMs) as autonomous decision makers. Each LLM (currently powered by GPT-4o-mini) controls one component of the supply chain — retailer, wholesaler, distributor, or factory. Identical to the setup of the traditional Beer Game, each role manages the inventory at that facility, responds to downstream orders, and decides how many units to order upstream (or produce, in the case of the factory) to minimize costs.</p>
+                            <ul class="aiq-description-bullets">
+                                <li>The <span class="highlight-text">LLM-powered Beer Distribution Game</span> shares much with the classic version — but with a twist</li>
+                                <li>Instead of <strong>human players</strong>, this game is played among <span class="highlight-text">Large Language Models (LLMs)</span> as <strong>autonomous decision makers</strong></li>
+                                <li>Each LLM (currently powered by <strong>GPT-4o-mini</strong>) controls one component of the supply chain — <span class="highlight-text">retailer</span>, <span class="highlight-text">wholesaler</span>, <span class="highlight-text">distributor</span>, or <span class="highlight-text">factory</span></li>
+                                <li>Identical to the traditional Beer Game, each role <strong>manages inventory</strong>, <strong>responds to downstream orders</strong>, and <strong>decides how many units to order upstream</strong> to <span class="highlight-text">minimize costs</span></li>
+                            </ul>
                         </div>
                     </div>
                     

@@ -9,7 +9,7 @@
     "beer-game-info": {
       "title": "What is the Beer Game?",
       "body": "The <span class=\"highlight-text\">Beer Distribution Game</span> was developed at MIT in the 1960s and has been played by MBA and Executive students for over 60 years. The goal is simple: minimize supply chain costs. Four players take different roles (retailer, wholesaler, distributor, and factory) in a beer distribution network.<br><br>The game works in rounds, each representing one week. Each player makes just ONE decision per round: how much to order from their supplier (or how much to produce as the factory). Despite this simple decision, two things make the game challenging:<br><br><strong>1. Limited Information:</strong> If you're not the retailer, you don't see what customers actually want.<br><strong>2. Delivery Delays:</strong> Orders take time to arrive from suppliers.<br><br>Players must track both their on-hand inventory and their pipeline inventory (what they ordered but hasn't arrived yet). These complications create the famous <span class=\"highlight-text\">Bullwhip Effect</span> - small changes in customer demand create wild swings in orders upstream in the supply chain.",
-      "question": "<span class=\"highlight-text\">What happens when AI 🤖 plays the Beer Game?</span>"
+      "question": "<span class=\"highlight-text\">We will explore what happens when AI 🤖 plays the Beer Game.</span>"
     },
     "llm-beer-game": {
       "title": "The LLM-Powered Beer Game",
@@ -73,10 +73,10 @@
     "aiq": {
       "title": "What happens when AI plays the Beer Game?",
       "bullets": [
-        "AI agents follow simple rules or learned policies to place orders.",
-        "They may smooth orders or overreact—it depends on the policy and delays.",
-        "The goal isn't perfect prediction; it's seeing how different policies change costs and bullwhip.",
-        "Try the simulation to compare behaviors."
+        "<span class=\"highlight-text\">AI agents</span> follow <strong>simple rules</strong> or <strong>learned policies</strong> to place orders.",
+        "They may <strong>smooth orders</strong> or <strong>overreact</strong>—it depends on the <span class=\"highlight-text\">policy</span> and <span class=\"highlight-text\">delays</span>.",
+        "The goal isn't <strong>perfect prediction</strong>; it's seeing how different policies change <span class=\"highlight-text\">costs</span> and <span class=\"highlight-text\">bullwhip</span>.",
+        "<strong>Try the simulation</strong> to compare behaviors."
       ]
     },
     "try": {
