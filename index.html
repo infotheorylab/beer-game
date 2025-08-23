@@ -389,7 +389,7 @@
         <!-- Section 7: Orchestra-Aided Decision-Making -->
         <section id="orchestra-section" class="section">
             <div class="reveal">
-                <h2 id="orchestra-title">Orchestra-Aided Decision-Making</h2>
+                <h2 id="orchestra-title">Orchestrator-Aided Decision-Making</h2>
                 <div class="orchestra-content">
                     <div class="orchestra-description">
                         <p>The <span class="highlight-text">LLM-Powered Beer Game</span> has other options that model various situations. These differing options enable you to <strong>illustrate and compare</strong> concepts such as <span class="highlight-text">lead-time reduction</span> and <span class="highlight-text">global information sharing</span>.</p>
@@ -411,12 +411,22 @@
         <!-- Section 8: Try It -->
         <section id="try" class="section">
             <div class="reveal">
-                <h2 id="try-title">Try the Simulation</h2>
-                <p id="try-text" class="reveal">Experience the Beer Game with AI agents</p>
+                <h2 id="try-title">Live Simulation</h2>
+                <p id="try-text" class="reveal"><span class="highlight-text">Experience the Beer Game with AI agents for the first time</span></p>
+                <ul class="simulation-steps">
+                    <li><strong>STEP 1:</strong> Set your <span class="highlight-text">simulation parameters</span> that determines the supply chain scenario</li>
+                    <li><strong>STEP 2:</strong> Click <span class="highlight-text">"Run Simulation"</span> to start --- LLMs play the game in the background</li>
+                    <li><strong>STEP 3:</strong> Visualize the outcome of the game, the <span class="highlight-text">bullwhip effect</span> and its associated metrics</li>
+                </ul>
             </div>
-            <div class="iframe-container reveal">
-                <iframe id="hf-frame" src="" title="Beer Game Simulation"></iframe>
-                <a id="hf-link" href="" target="_blank" class="external-link">Open in new tab ↗</a>
+            <div class="simulation-container reveal">
+                <a id="hf-link" href="" target="_blank" class="simulation-link">
+                    <img src="assets/images/simulation_snapshot.png" alt="Beer Game Simulation Screenshot" class="simulation-image">
+                    <div class="simulation-overlay">
+                        <div class="play-button">▶</div>
+                        <p>Click to launch simulation</p>
+                    </div>
+                </a>
             </div>
         </section>
 

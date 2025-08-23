@@ -3027,4 +3027,122 @@ p {
   font-weight: 600;
 }
 
+/* Live Simulation Section */
+#try {
+  min-height: auto;
+  padding: 4rem 1.25rem;
+}
+
+.simulation-steps {
+  list-style: none;
+  padding: 0;
+  margin: 2rem auto 0;
+  max-width: 60ch;
+  text-align: left;
+}
+
+.simulation-steps li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.simulation-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.simulation-steps li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.simulation-steps li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.simulation-container {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  position: relative;
+}
+
+.simulation-link {
+  display: block;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+.simulation-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.simulation-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.simulation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.simulation-link:hover .simulation-overlay {
+  opacity: 1;
+}
+
+.play-button {
+  font-size: 4rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.simulation-overlay p {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .simulation-container {
+    max-width: 90%;
+    margin: 1.5rem auto;
+  }
+  
+  .play-button {
+    font-size: 3rem;
+  }
+  
+  .simulation-overlay p {
+    font-size: 1.125rem;
+  }
+}
+
 
