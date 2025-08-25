@@ -1,12 +1,8 @@
 # LLM-Powered Beer Distribution Game Website
 
-## 🚧 UNDER DEVELOPMENT 🚧
-
-**This project is currently under active development. Features, content, and functionality may change frequently.**
-
 ## About
 
-This website showcases research into how Large Language Models (LLMs) behave when controlling roles in the classic Beer Distribution Game - a supply chain simulation exercise. The project explores how AI agents manage inventory, orders, and the infamous "bullwhip effect" across different supply chain positions (retailer, wholesaler, distributor, factory).
+This website (https://infotheorylab.github.io/beer-game/) showcases research into how Large Language Models (LLMs) behave when controlling roles in the classic Beer Distribution Game - a supply chain simulation exercise. The project explores how AI agents manage inventory, orders, and the infamous "bullwhip effect" across different supply chain positions (retailer, wholesaler, distributor, factory).
 
 The Beer Game is a well-known business simulation that demonstrates how small changes in customer demand can create massive amplification and instability as information travels upstream through a supply chain. This research investigates whether AI agents exhibit similar behaviors or can potentially mitigate these effects.
 
