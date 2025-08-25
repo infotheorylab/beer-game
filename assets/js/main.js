@@ -74,7 +74,12 @@ function updateElement(id, content) {
             // Don't overwrite titles with highlight spans - they're already in HTML
             return;
         }
-        element.textContent = content;
+        // Use innerHTML for hero-kicker to preserve HTML markup like highlighting and line breaks
+        if (id === 'hero-kicker') {
+            element.innerHTML = content;
+        } else {
+            element.textContent = content;
+        }
     }
 }
 
