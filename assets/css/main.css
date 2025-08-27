@@ -247,10 +247,53 @@ p {
 }
 
 .desktop-hint {
-  font-size: 0.8rem;
-  opacity: 0.7;
-  font-style: italic;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--accent);
+  background: rgba(245, 158, 11, 0.15);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  margin-top: 0.75rem;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  animation: desktopPulse 3s ease-in-out infinite;
+}
+
+@keyframes desktopPulse {
+  0%, 100% {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
+  }
+}
+
+/* Make desktop hint MORE prominent on mobile since the site doesn't work well on mobile */
+@media (max-width: 768px) {
+  .desktop-hint {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.25rem;
+    margin-top: 1rem;
+    border-width: 3px;
+    animation: desktopPulseMobile 2s ease-in-out infinite;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  }
+  
+  @keyframes desktopPulseMobile {
+    0%, 100% {
+      transform: scale(1);
+      border-color: var(--accent);
+    }
+    50% {
+      transform: scale(1.05);
+      border-color: #fbbf24;
+    }
+  }
 }
 
 .scroll-indicator {
@@ -3287,6 +3330,232 @@ p {
 
 .factory-text {
   color: var(--factory) !important;
+}
+
+/* Contact Section */
+#contact {
+  min-height: 100vh;
+  padding: 4rem 1.25rem;
+}
+
+.contact-intro {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Main Email All Authors Button */
+.email-all-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.email-all-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--accent);
+  color: var(--bg-primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.3rem;
+  padding: 1.25rem 2.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+}
+
+.email-all-button:hover {
+  background: #e09406;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+}
+
+.email-all-button i {
+  font-size: 1.5rem;
+}
+
+.email-all-description {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 1rem 0 0 0;
+}
+
+/* Category Cards Row */
+.contact-categories-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-category-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 220px;
+}
+
+.category-card-link {
+  display: block;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem 1rem;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-card-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  border-color: var(--accent);
+}
+
+.category-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  transition: all 0.3s ease;
+}
+
+.category-card-link:hover .category-icon {
+  transform: scale(1.1);
+}
+
+.category-icon i {
+  font-size: 1.3rem;
+  color: var(--bg-primary);
+}
+
+.category-card-link h4 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.category-card-link:hover h4 {
+  color: var(--accent);
+}
+
+.category-card-link p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.contact-note {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: rgba(245, 158, 11, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.contact-note p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.contact-note i {
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .contact-categories-row {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .contact-category-card {
+    min-width: 140px;
+    max-width: 160px;
+  }
+  
+  .category-card-link {
+    padding: 1.25rem 0.75rem;
+  }
+  
+  .category-icon {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .category-icon i {
+    font-size: 1.1rem;
+  }
+  
+  .category-card-link h4 {
+    font-size: 0.9rem;
+  }
+  
+  .category-card-link p {
+    font-size: 0.8rem;
+  }
+  
+  .email-all-button {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+  }
+  
+  .contact-intro {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-categories-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .contact-category-card {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .category-card-link {
+    flex-direction: row;
+    text-align: left;
+    padding: 1rem 1.5rem;
+  }
+  
+  .category-icon {
+    margin-bottom: 0;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .category-card-content {
+    flex: 1;
+  }
 }
 
 

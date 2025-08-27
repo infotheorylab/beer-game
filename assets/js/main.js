@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize Hugging Face embed
     initHuggingFaceEmbed();
+    
+    // Contact section - no JavaScript needed for mailto links
 });
 
 // Content Loading
@@ -780,7 +782,7 @@ function createBullwhipChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 400,
+                    max: 20, // Start with customer demand scale
                     ticks: {
                         color: '#d1d5db',
                         font: {
@@ -1054,11 +1056,20 @@ function initProgressiveBullwhipChart() {
         const totalSteps = 5; // 5 datasets (customer, retailer, wholesaler, distributor, factory)
         const currentStep = Math.floor(scrollProgress * totalSteps);
         
-        // Update bullwhip chart visibility
+        // Update bullwhip chart visibility and scale
         if (window.bullwhipChart) {
             window.bullwhipChart.data.datasets.forEach((dataset, index) => {
                 dataset.hidden = index > currentStep;
             });
+            
+            // Dynamically adjust y-axis scale based on visible datasets
+            let maxScale = 20; // Start with customer demand scale (0-20)
+            if (currentStep >= 1) maxScale = 50;   // Retailer visible: 0-50
+            if (currentStep >= 2) maxScale = 150;  // Wholesaler visible: 0-150
+            if (currentStep >= 3) maxScale = 250;  // Distributor visible: 0-250
+            if (currentStep >= 4) maxScale = 400;  // Factory visible: 0-400
+            
+            window.bullwhipChart.options.scales.y.max = maxScale;
             window.bullwhipChart.update('none'); // No animation for smooth scrolling
         }
         
@@ -1102,3 +1113,5 @@ function smoothScrollTo(element) {
         block: 'start'
     });
 }
+
+// Contact section uses simple mailto links - no JavaScript needed

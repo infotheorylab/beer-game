@@ -16,34 +16,80 @@ The Beer Game is a well-known business simulation that demonstrates how small ch
 ## How to Run Locally
 
 ### Prerequisites
-- Python 3.x installed on your system
+- Node.js (v16 or higher) and npm installed on your system
+- Email account with SMTP access (Gmail recommended)
 
-### Step-by-Step Instructions
+### Development Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
+#### Option 1: Static Website Only (No Feedback Form)
+```bash
+# Clone the repository
+git clone <repository-url>
+cd beer-game
+
+# Start a simple web server
+python -m http.server 8080
+# Or use Node.js
+npx http-server -p 8080
+
+# Open http://localhost:8080 in your browser
+```
+
+#### Option 2: Full Website with Backend (Feedback Form Enabled)
+```bash
+# Clone the repository
+git clone <repository-url>
+cd beer-game
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your email configuration (see Email Setup below)
+
+# Start the development server
+npm run dev
+# Or for production
+npm start
+
+# Open http://localhost:3000 in your browser
+```
+
+### Email Setup for Feedback Form
+
+#### Gmail Setup (Recommended)
+1. Enable 2-factor authentication on your Gmail account
+2. Generate an App Password: https://support.google.com/accounts/answer/185833
+3. Update your `.env` file:
+   ```
+   EMAIL_SERVICE=gmail
+   EMAIL_USER=your-gmail@gmail.com
+   EMAIL_APP_PASSWORD=your-16-character-app-password
+   EMAIL_TO=feedback-recipient@gmail.com
    ```
 
-2. **Navigate to the project directory**
-   ```bash
-   cd beer-game.github.io
-   ```
+#### Custom SMTP Setup
+For other email providers, update your `.env` file:
+```
+EMAIL_SERVICE=custom
+SMTP_HOST=smtp.yourdomain.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your-email@yourdomain.com
+SMTP_PASS=your-password
+EMAIL_TO=feedback-recipient@yourdomain.com
+```
 
-3. **Start a local web server**
-   ```bash
-   python -m http.server 8080
-   ```
-   
-   *Note: On some systems, you may need to use `python3` instead of `python`*
+### Deployment
 
-4. **Open your web browser**
-   - Navigate to: `http://localhost:8080`
-   - **Best experienced on desktop** for optimal interactive features
+#### Static Hosting (GitHub Pages, Netlify, Vercel)
+The website can be deployed as static files. The feedback form will be disabled.
 
-5. **View the website**
-   - The site features scroll-based interactions and animations
-   - Use scroll or arrow keys to navigate between sections
+#### Full-Stack Hosting (Heroku, Railway, DigitalOcean)
+1. Set environment variables on your hosting platform
+2. Ensure your hosting service supports Node.js
+3. The server will serve both static files and API endpoints
 
 ## Technical Details
 
