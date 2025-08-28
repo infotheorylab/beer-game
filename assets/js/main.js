@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Hugging Face embed
     initHuggingFaceEmbed();
     
+    // Initialize binary decode animation for IT lab logo
+    initBinaryDecodeAnimation();
+    
     // Contact section - no JavaScript needed for mailto links
 });
 
@@ -1115,3 +1118,52 @@ function smoothScrollTo(element) {
 }
 
 // Contact section uses simple mailto links - no JavaScript needed
+
+// Binary Decode Animation for Information Theory Lab Logo
+function initBinaryDecodeAnimation() {
+    const binaryTextAnimated = document.getElementById('binary-text-animated');
+    if (!binaryTextAnimated) return;
+    
+    const originalText = 'Information Theory';
+    
+    function generateRandomBinary(length) {
+        return Array.from({ length }, () => Math.random() > 0.5 ? '1' : '0').join('');
+    }
+    
+    function animateBinaryDecode() {
+        let step = 0;
+        const totalSteps = 20; // Number of animation frames
+        const decodeSteps = 12; // When to start revealing actual text
+        
+        const interval = setInterval(() => {
+            if (step < decodeSteps) {
+                // Pure binary phase
+                binaryTextAnimated.textContent = generateRandomBinary(originalText.length);
+            } else {
+                // Progressive decode phase
+                const revealIndex = Math.floor(((step - decodeSteps) / (totalSteps - decodeSteps)) * originalText.length);
+                const revealed = originalText.substring(0, revealIndex);
+                const binary = generateRandomBinary(originalText.length - revealIndex);
+                binaryTextAnimated.textContent = revealed + binary;
+            }
+            
+            step++;
+            
+            if (step >= totalSteps) {
+                clearInterval(interval);
+                // Final reveal
+                binaryTextAnimated.textContent = originalText;
+                
+                // Schedule next animation cycle
+                setTimeout(() => {
+                    animateBinaryDecode();
+                }, 4000); // Wait 4 seconds before next cycle
+            }
+        }, 100); // 100ms between frames
+    }
+    
+    // Start the animation after a short delay to ensure page is loaded
+    setTimeout(() => {
+        animateBinaryDecode();
+    }, 2000);
+}

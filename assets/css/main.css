@@ -154,7 +154,7 @@ p {
 .lab-logos {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 2rem;
   margin: 1.5rem 0;
 }
@@ -172,6 +172,36 @@ p {
   transform: scale(1.05);
 }
 
+/* Binary Decode Animation for IT Lab Logo */
+.binary-decode-logo {
+  display: block;
+  position: relative;
+  font-family: 'Doto', monospace;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.3;
+  text-align: center;
+  padding: 0.1rem 0;
+  min-width: 200px;
+  letter-spacing: 0.1em; /* Increased for more stable spacing during animation */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: #FFFFFF; /* Default color for "The" and "Laboratory" */
+}
+
+.logo-line-1, .logo-line-2 {
+  display: block;
+  text-align: center;
+}
+
+.binary-part {
+  color: #f59e0b; /* Amber yellow to match Beer Game theme */
+}
+
+.harvard-part {
+  color: #f59e0b; /* Same amber as animated text, but not animated */
+}
+
 @media (max-width: 768px) {
   .lab-logos {
     gap: 1rem;
@@ -179,6 +209,19 @@ p {
   
   .lab-logo {
     height: 50px;
+  }
+  
+  .binary-decode-logo {
+    font-size: 1.28rem;
+    min-width: 160px;
+  }
+  
+  .binary-part {
+    color: #f59e0b; /* Maintain consistent amber color on mobile */
+  }
+  
+  .harvard-part {
+    color: #f59e0b; /* Maintain consistent amber color on mobile */
   }
 }
 
