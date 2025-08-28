@@ -3020,6 +3020,48 @@ p {
   font-weight: 600;
 }
 
+/* Lessons Section */
+.lessons-content {
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  text-align: center;
+}
+
+.lessons-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 70ch;
+  text-align: left;
+}
+
+.lessons-bullets li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.lessons-bullets li:last-child {
+  margin-bottom: 0;
+}
+
+.lessons-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.lessons-bullets li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 /* Live Simulation Section */
 #try {
   min-height: auto;
