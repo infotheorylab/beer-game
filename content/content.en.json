@@ -4,7 +4,7 @@
   "slides": {
     "hero": {
       "title": "The LLM-Powered Beer Distribution Game Simulator",
-      "kicker": "Can Gen AI agents 🤖 manage a supply chain?<br><span class=\"highlight-text\">Lessons from the classical Beer Game.</span>"
+      "kicker": "Can GenAI agents 🤖 manage a supply chain?<br><span class=\"highlight-text\">Lessons from the classical Beer Game.</span>"
     },
     "beer-game-info": {
       "title": "What is the Beer Game?",
