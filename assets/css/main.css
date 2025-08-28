@@ -2502,82 +2502,16 @@ p {
   margin-top: 2rem;
 }
 
-/* AI Question Section */
-/* AIQ Section with Sticky Layout */
-#aiq-section {
-  height: 200vh; /* Tall section for scroll-based content switching */
-  scroll-snap-align: start;
-  position: relative;
-}
-
-.aiq-sticky-wrapper {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 3rem 2rem 2rem;
-  overflow: hidden;
-}
-
-.aiq-header {
-  text-align: center;
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
-.aiq-header h2 {
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
-}
-
-/* AI Supply Chain Diagram - Fixed Position */
+/* AI Supply Chain Diagram - Simple Layout */
 .ai-supply-chain {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   flex-wrap: nowrap;
-  margin: 1rem auto;
+  margin: 2rem auto;
   max-width: 1000px;
   overflow-x: auto;
-}
-
-/* Content Area for Switching */
-.aiq-content-area {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin-top: 1rem;
-  flex: 1;
-}
-
-.aiq-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease;
-}
-
-.aiq-content.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.aiq-description .container p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  text-align: center;
-  color: var(--text-secondary);
-  max-width: 900px;
-  margin: 0 auto;
 }
 
 .ai-chain-node {
@@ -2591,7 +2525,7 @@ p {
 }
 
 .ai-chain-node .supply-chain-icon {
-  font-size: 3rem; /* Slightly smaller than interactive version */
+  font-size: 3rem;
 }
 
 /* Robot Icons */
@@ -2600,25 +2534,10 @@ p {
   margin-top: 0.5rem;
 }
 
-.robot-icon[data-role="customer"] {
-  color: var(--customer);
-}
-
-.robot-icon[data-role="retailer"] {
-  color: var(--retailer);
-}
-
-.robot-icon[data-role="wholesaler"] {
-  color: var(--wholesaler);
-}
-
-.robot-icon[data-role="distributor"] {
-  color: var(--distributor);
-}
-
-.robot-icon[data-role="factory"] {
-  color: var(--factory);
-}
+.robot-icon[data-role="retailer"] { color: var(--retailer); }
+.robot-icon[data-role="wholesaler"] { color: var(--wholesaler); }
+.robot-icon[data-role="distributor"] { color: var(--distributor); }
+.robot-icon[data-role="factory"] { color: var(--factory); }
 
 /* AI Supply Chain Icon Colors */
 .ai-chain-node:nth-child(1) .supply-chain-icon { color: var(--customer); }
@@ -2631,30 +2550,6 @@ p {
   font-weight: 600;
   font-size: 0.9rem;
   margin: 0;
-}
-
-/* AI Bullets */
-#aiq-bullets {
-  list-style: none;
-  text-align: left;
-  max-width: 50ch;
-  margin: 2rem auto 0;
-}
-
-#aiq-bullets li {
-  position: relative;
-  padding-left: 2rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
-
-#aiq-bullets li::before {
-  content: "•";
-  color: var(--accent);
-  font-size: 1.5rem;
-  position: absolute;
-  left: 0;
-  top: -0.25rem;
 }
 
 /* Variables List */
@@ -3017,12 +2912,24 @@ p {
   max-width: none;
 }
 
+/* AI Section Content */
+.aiq-content {
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  text-align: center;
+}
+
+.aiq-description {
+  margin-top: 3rem;
+}
+
 /* AI Section Description Bullets */
 .aiq-description-bullets {
   list-style: none;
   padding: 0;
   margin: 0 auto;
   max-width: 70ch;
+  text-align: left;
 }
 
 .aiq-description-bullets li {
