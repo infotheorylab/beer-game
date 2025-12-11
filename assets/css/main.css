@@ -150,6 +150,69 @@ p {
   }
 }
 
+/* HBR Publication Links */
+.hbr-publication {
+  margin: 1.5rem auto;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.hbr-publication a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  flex: 1;
+  text-align: center;
+  min-width: 250px;
+}
+
+/* HBR Link (Orange box on left) */
+.hbr-link {
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  background-color: transparent;
+}
+
+.hbr-link:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* PDF Link (on right) */
+.pdf-link {
+  color: var(--text-primary);
+  border: 2px solid var(--text-primary);
+  background-color: transparent;
+}
+
+.pdf-link:hover {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(240, 240, 240, 0.3);
+}
+
+@media (max-width: 768px) {
+  .hbr-publication {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hbr-publication a {
+    width: 100%;
+  }
+}
+
 /* Lab Logos */
 .lab-logos {
   display: flex;
@@ -291,51 +354,16 @@ p {
 
 .desktop-hint {
   display: inline-block;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--accent);
-  background: rgba(245, 158, 11, 0.15);
-  border: 2px solid var(--accent);
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  margin-top: 0.75rem;
-  font-style: normal;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  animation: desktopPulse 3s ease-in-out infinite;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: white;
+  margin-top: 0.5rem;
+  font-style: italic;
 }
 
-@keyframes desktopPulse {
-  0%, 100% {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
-  }
-  50% {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
-  }
-}
-
-/* Make desktop hint MORE prominent on mobile since the site doesn't work well on mobile */
 @media (max-width: 768px) {
   .desktop-hint {
-    font-size: 1.1rem;
-    padding: 0.75rem 1.25rem;
-    margin-top: 1rem;
-    border-width: 3px;
-    animation: desktopPulseMobile 2s ease-in-out infinite;
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-  }
-  
-  @keyframes desktopPulseMobile {
-    0%, 100% {
-      transform: scale(1);
-      border-color: var(--accent);
-    }
-    50% {
-      transform: scale(1.05);
-      border-color: #fbbf24;
-    }
+    font-size: 1.2rem;
   }
 }
 
